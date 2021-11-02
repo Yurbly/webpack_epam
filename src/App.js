@@ -1,5 +1,8 @@
 import React from "react";
+import Layout from "components/layout/Layout";
 
-const App = () => <div>We are ready !!!</div>;
+const App = () => <Layout>
+    <div>We are ready !!!</div>
+</Layout>
 
 export default App;

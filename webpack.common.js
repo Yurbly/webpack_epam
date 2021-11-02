@@ -24,5 +24,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({title: "Webpack sandbox"}),
-    ]
+    ],
+    resolve: {
+        alias: {
+            components: path.resolve(__dirname, 'src/components/'),
+            consts: path.resolve(__dirname, 'src/consts/'),
+            containers: path.resolve(__dirname, 'src/containers/'),
+        },
+    },
 }
