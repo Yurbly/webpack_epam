@@ -9,6 +9,8 @@ body.style.width = "100vw";
 body.style.height = "100vh";
 body.style.overflow = "hidden";
 body.style.margin = 0;
+body.style.fontSize = "16px";
+body.style.fontFamily = "Montserrat";
 
 root.id = "root";
 root.style.width = "100vw";

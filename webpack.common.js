@@ -19,7 +19,11 @@ module.exports = {
                     }
                 },
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
         ]
     },
     plugins: [
@@ -30,6 +34,7 @@ module.exports = {
             components: path.resolve(__dirname, 'src/components/'),
             consts: path.resolve(__dirname, 'src/consts/'),
             containers: path.resolve(__dirname, 'src/containers/'),
+            images: path.resolve(__dirname, 'public/images'),
         },
     },
 }
