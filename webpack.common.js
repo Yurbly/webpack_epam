@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     mode: process.env.NODE_ENV,
-    entry: "./src/index.js",
+    entry: ["@babel/polyfill", "./src/index.js"],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: 'bundle.js'
@@ -27,7 +27,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({title: "Webpack sandbox"}),
+        new HtmlWebpackPlugin({template: 'public/index.html'}),
     ],
     resolve: {
         alias: {

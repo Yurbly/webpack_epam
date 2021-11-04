@@ -1,72 +1,43 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import Tab from "./Tab";
 
-const tabs = [
-    {
-        name: "all",
-        content: "Mock 1"
-    },
-    {
-        name: "documentary",
-        content: "Mock 2"
-    },
-    {
-        name: "comedy",
-        content: "Mock 3"
-    },
-    {
-        name: "horror",
-        content: "Mock 4"
-    },
-    {
-        name: "crime",
-        content: "Mock 5"
-    }
-];
-
-const TabsWrapper = styled.div`
-  display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    background: #232323;
-`;
-
-const TabsContainer = styled.div`
+const TabsHeader = styled.div`
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     border-bottom: 2px solid #424242;
+    margin: 2rem 0;
+    box-sizing: border-box;
+    height: 2.7rem;
+    width: 100%;
 `;
-
-const TabContentContainer = styled.div`
-    padding: 3rem;
+const Area = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: white;
+    justify-content: space-between;
+   
+    margin: 1rem 0;
 `;
 
-const Tabs = () => {
-    const [activeTabNum, setActiveTabNum] = useState(0);
+const Tabs = (props) => {
+    const {tabs, onTabChange, activeTabId, controls} = props;
 
     return (
-            <TabsWrapper className="toggler-container">
-                <TabsContainer className="tabs-container">{
-                    tabs.map((t, i) =>
+            <TabsHeader>
+                <Area>
+                    {tabs.map((t) =>
                         <Tab
                             name={t.name.toUpperCase()}
-                            key={t.name}
-                            onClick={() => setActiveTabNum(i)}
-                            isActive={activeTabNum === i}
-                        />)
-                }</TabsContainer>
-                <TabContentContainer className="content-container">
-                    {tabs[activeTabNum].content}
-                </TabContentContainer>
-            </TabsWrapper>
-    )
+                            key={t.id}
+                            onClick={() => onTabChange(t.id)}
+                            isActive={t.id === activeTabId}
+                        />)}
+                </Area>
+                <Area>
+                    {controls}
+                </Area>
+            </TabsHeader>)
 }
 
 export default Tabs;

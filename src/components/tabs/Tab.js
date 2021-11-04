@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TabContainer = styled.div`
-  display: flex;
+    display: flex;
     flex-flow: column;
     height: 2.7rem;
     justify-content: space-between;
@@ -26,7 +26,7 @@ const Underline = styled.div`
     width: 100%;
     height: 4px;
     background: #F65261;
-    ${props => props.isActive && "visibility: hidden"};
+    ${props => !props.isActive && "visibility: hidden"};
 `;
 
 

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
+import Button from "components/common/Button";
 
 const SearchContainer = styled.div`
-  padding: 2rem;
+  padding: 8rem;
   display: flex;
   flex-flow: column;
   flex: 1;
@@ -33,7 +34,6 @@ const SearchInput = styled.input`
     height: 3.6rem;
     flex: 1;
     background: rgba(50, 50, 50, 0.8);
-    opacity: 0.7;
     padding: 1rem;
     box-sizing: border-box;
     border-radius: 4px;
@@ -48,17 +48,6 @@ const SearchInput = styled.input`
     }
 `;
 
-const Button = styled.button`
-    width: 14.6rem;
-    height: 3.6rem !important;
-    border-radius: 4px;
-    border: none;
-    background: #F65261;
-    color: white;
-    font-size: 1.25rem;
-    cursor: pointer;
-`;
-
 const Search = () => {
     const [search, setSearch] = useState("");
 
@@ -71,7 +60,9 @@ const Search = () => {
                     onChange={e => setSearch(e.target.value)}
                     placeholder="What do you want to watch?"
                 />
-                <Button className="search-button">SEARCH</Button>
+                <Button
+                    title="SEARCH"
+                />
             </SearchRow>
         </SearchContainer>
     )

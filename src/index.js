@@ -2,23 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-const root = document.createElement("div");
-
-const {body} = document;
-body.style.width = "100vw";
-body.style.height = "100vh";
-body.style.overflow = "hidden";
-body.style.margin = 0;
-body.style.fontSize = "16px";
-body.style.fontFamily = "Montserrat";
-
-root.id = "root";
-root.style.width = "100vw";
-root.style.height = "100vh";
-root.style.margin = "0";
-root.style.overflow = "hidden";
-
-document.body.appendChild(root);
+const root = document.getElementById("root");
 
 ReactDOM.render(<App/>, root);
 
