@@ -4,38 +4,33 @@ import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
 import colors from "consts/colors";
 import Tabs from "components/tabs/Tabs";
+import MovieCard from "components/movie/MovieCard";
 
 const tabs = [
     {
         id: "all",
-        name: "all",
-        content: "Mock 1"
+        name: "all"
     },
     {
         id: "documentary",
-        name: "documentary",
-        content: "Mock 2"
+        name: "documentary"
     },
     {
         id: "comedy",
-        name: "comedy",
-        content: "Mock 3"
+        name: "comedy"
     },
     {
         id: "horror",
-        name: "horror",
-        content: "Mock 4"
+        name: "horror"
     },
     {
         id: "crime",
-        name: "crime",
-        content: "Mock 5"
+        name: "crime"
     }
 ];
 
 
-const HomeContainer = styled.div`
-    height: 100%;
+const HomeContainer = styled.div`   
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
@@ -82,11 +77,11 @@ const ContentContainer = styled.div`
     background: #232323;
 `;
 
-const TabContentContainer = styled.div`
-    padding: 3rem;
+const MoviesContainer = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     color: white;
 `;
 
@@ -94,8 +89,6 @@ const Main = () => {
 
     const [activeTabId, setActiveTabId] = useState((tabs[0] && tabs[0].id) || {});
     const [movies, setMovies] = useState([]);
-
-    const activeTab = tabs.find(t => t.id === activeTabId);
 
     const getMovies = useCallback(async () => {
         const tabData = tabs.find(t => t.id === activeTabId);
@@ -124,14 +117,19 @@ const Main = () => {
                 <Background src={headerBackgroundUrl}/>
             </Header>
             <ContentContainer>
-                    <Tabs
-                        tabs={tabs}
-                        activeTabId={activeTabId}
-                        onTabChange={setActiveTabId}
-                    />
-                    <TabContentContainer>
-                        {activeTab.content}
-                    </TabContentContainer>
+                <Tabs
+                    tabs={tabs}
+                    activeTabId={activeTabId}
+                    onTabChange={setActiveTabId}
+                />
+                <MoviesContainer>
+                    {movies.map(m =>
+                        <MovieCard
+                            key={m.id}
+                            data={m}
+                        />
+                    )}
+                </MoviesContainer>
             </ContentContainer>
         </HomeContainer>
     );

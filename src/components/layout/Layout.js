@@ -11,6 +11,7 @@ const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
   background: ${colors.lightGray};
+  overflow: auto;
 `;
 
 const Layout = (props) =>
