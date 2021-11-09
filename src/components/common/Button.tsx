@@ -5,7 +5,6 @@ import colors from "consts/colors";
 const ButtonContainer = styled.div`
   display: flex;
   flex-flow: column;
-  flex: 1;
   align-items: flex-start;
   position: relative;
   z-index: 2;
@@ -24,7 +23,7 @@ const ButtonComponent = styled.button`
 
 interface IProps {
     title: string,
-    onClick: React.MouseEventHandler<HTMLButtonElement>,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
     buttonStyle?: {},
     containerStyle?: {}
 }

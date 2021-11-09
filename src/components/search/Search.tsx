@@ -4,20 +4,20 @@ import colors from "consts/colors";
 import Button from "components/common/Button";
 
 const SearchContainer = styled.div`
-  padding: 8rem;
   display: flex;
   flex-flow: column;
   flex: 1;
   align-items: flex-start;
   position: relative;
   z-index: 2;
+  width: 80%;
 `;
 
 const Title = styled.div`
   color: ${colors.white};
   font-size: 2.5rem;
   text-transform: uppercase;
-  margin: 0 0 2.1rem;
+  margin: 0 0 3rem;
 `;
 
 const SearchRow = styled.div`

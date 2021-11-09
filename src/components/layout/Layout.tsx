@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import styled from "styled-components"
 import colors from "consts/colors";
 
-const LayoutContainer = styled.div`
+const WithFooterContainer = styled.div`
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
@@ -15,7 +15,7 @@ const LayoutContainer = styled.div`
 `;
 
 const Layout: FC = (props) =>
-    <LayoutContainer>{props.children}</LayoutContainer>;
+    <WithFooterContainer>{props.children}</WithFooterContainer>;
 
 export default Layout
 

@@ -1,11 +1,11 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
-import Search from "components/search/Search";
-import headerBackgroundUrl from "images/header_background.png";
 import colors from "consts/colors";
+import Header from "components/header/Header";
 import Tabs from "components/tabs/Tabs";
 import MoviesList from "components/movie/list/MoviesList";
-import ErrorBoundary from "../components/common/ErrorBoundary";
+import ErrorBoundary from "components/common/ErrorBoundary";
+import WithFooter from "components/common/WithFooter";
 
 const tabs = [
     {
@@ -40,34 +40,8 @@ const HomeContainer = styled.div`
     width: 78.8rem;
 `;
 
-const Header = styled.header`
-    position: relative;
-    height: 30rem;
-    width: 100%;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem;
-    background: ${colors.black};
-    overflow: hidden;
-`;
-
-const Background = styled.img`
-    mix-blend-mode: normal;
-    opacity: 0.7;
-    filter: blur(5px);
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-`;
-
 const ContentContainer = styled.div`
     padding: 0 3rem;
-    margin: 0 0 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,24 +87,23 @@ const Main: FC = () => {
     }, [activeTabId]);
 
     return (
-        <HomeContainer>
-            <Header>
-                <Search/>
-                <Background src={headerBackgroundUrl}/>
-            </Header>
-            <ContentContainer>
-                <Tabs
-                    tabs={tabs}
-                    activeTabId={activeTabId}
-                    onTabChange={setActiveTabId}
-                />
-                <ErrorBoundary>
-                    <MoviesContainer>
-                        <MoviesList movies={movies}/>
-                    </MoviesContainer>
-                </ErrorBoundary>
-            </ContentContainer>
-        </HomeContainer>
+        <WithFooter>
+            <HomeContainer>
+                <Header/>
+                <ContentContainer>
+                    <Tabs
+                        tabs={tabs}
+                        activeTabId={activeTabId}
+                        onTabChange={setActiveTabId}
+                    />
+                    <ErrorBoundary>
+                        <MoviesContainer>
+                            <MoviesList movies={movies}/>
+                        </MoviesContainer>
+                    </ErrorBoundary>
+                </ContentContainer>
+            </HomeContainer>
+        </WithFooter>
     );
 }
 
