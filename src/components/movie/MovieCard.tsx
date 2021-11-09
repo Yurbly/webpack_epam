@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 
@@ -41,7 +41,16 @@ const Genres = styled.div`
     padding: 0.7rem 0 0;
 `;
 
-const MovieCard = props => {
+interface IProps {
+    data: {
+        title: string,
+        genres: Array<any>,
+        poster_path: string,
+        release_date: string
+    }
+}
+
+const MovieCard: FC<IProps> = props => {
 
     const {data} = props;
     const {title, genres, poster_path, release_date} = data;

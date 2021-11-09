@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 
@@ -22,7 +22,15 @@ const ButtonComponent = styled.button`
     cursor: pointer;
 `;
 
-const Button = (props) => {
+interface IProps {
+    title: string,
+    onClick: React.MouseEventHandler<HTMLButtonElement>,
+    buttonStyle?: {},
+    containerStyle?: {}
+}
+
+
+const Button: FC<IProps> = props => {
 
     const {title, onClick, buttonStyle, containerStyle} = props;
 

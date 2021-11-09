@@ -1,5 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
+
+interface IUnderlineProps {
+    isActive: boolean
+}
 
 const TabContainer = styled.div`
     display: flex;
@@ -22,15 +26,20 @@ const TabName = styled.div`
     color: white;
 `;
 
-const Underline = styled.div`
+const Underline = styled.div<IUnderlineProps>`
     width: 100%;
     height: 4px;
     background: #F65261;
     ${props => !props.isActive && "visibility: hidden"};
 `;
 
+interface IProps {
+    name: string,
+    isActive: boolean,
+    onClick: React.MouseEventHandler<HTMLDivElement>
+}
 
-const Tab = ({name, isActive, onClick}) =>
+const Tab: FC<IProps> = ({name, isActive, onClick}) =>
     <TabContainer onClick={onClick}>
         <TabName>{name}</TabName>
         <Underline isActive={isActive}/>

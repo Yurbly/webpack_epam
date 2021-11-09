@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components"
 import colors from "consts/colors";
 
@@ -14,7 +14,7 @@ const LayoutContainer = styled.div`
   overflow: auto;
 `;
 
-const Layout = (props) =>
+const Layout: FC = (props) =>
     <LayoutContainer>{props.children}</LayoutContainer>;
 
 export default Layout

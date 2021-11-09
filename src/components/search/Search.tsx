@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 import Button from "components/common/Button";
@@ -48,7 +48,7 @@ const SearchInput = styled.input`
     }
 `;
 
-const Search = () => {
+const Search: FC = () => {
     const [search, setSearch] = useState("");
 
     return (
@@ -62,6 +62,7 @@ const Search = () => {
                 />
                 <Button
                     title="SEARCH"
+                    onClick={() => {}}
                 />
             </SearchRow>
         </SearchContainer>

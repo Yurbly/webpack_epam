@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
 import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
@@ -85,9 +85,9 @@ const MoviesContainer = styled.div`
     color: white;
 `;
 
-const Main = () => {
+const Main: FC = () => {
 
-    const [activeTabId, setActiveTabId] = useState((tabs[0] && tabs[0].id) || {});
+    const [activeTabId, setActiveTabId] = useState((tabs[0] && tabs[0].id) || "");
     const [movies, setMovies] = useState([]);
 
     const getMovies = useCallback(async () => {

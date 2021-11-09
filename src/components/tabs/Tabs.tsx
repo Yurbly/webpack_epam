@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC, ReactNode} from "react";
 import styled from "styled-components";
 import Tab from "./Tab";
 
@@ -20,7 +20,14 @@ const Area = styled.div`
     margin: 1rem 0;
 `;
 
-const Tabs = (props) => {
+interface IProps {
+    tabs: Array<any>,
+    onTabChange(str: string): void,
+    activeTabId: string,
+    controls?: ReactNode
+}
+
+const Tabs: FC<IProps> = props => {
     const {tabs, onTabChange, activeTabId, controls} = props;
 
     return (
