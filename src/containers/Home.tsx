@@ -4,7 +4,8 @@ import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
 import colors from "consts/colors";
 import Tabs from "components/tabs/Tabs";
-import MovieCard from "components/movie/MovieCard";
+import MoviesList from "components/movie/list/MoviesList";
+import ErrorBoundary from "../components/common/ErrorBoundary";
 
 const tabs = [
     {
@@ -66,6 +67,7 @@ const Background = styled.img`
 
 const ContentContainer = styled.div`
     padding: 0 3rem;
+    margin: 0 0 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,14 +124,11 @@ const Main: FC = () => {
                     activeTabId={activeTabId}
                     onTabChange={setActiveTabId}
                 />
-                <MoviesContainer>
-                    {movies.map(m =>
-                        <MovieCard
-                            key={m.id}
-                            data={m}
-                        />
-                    )}
-                </MoviesContainer>
+                <ErrorBoundary>
+                    <MoviesContainer>
+                        <MoviesList movies={movies}/>
+                    </MoviesContainer>
+                </ErrorBoundary>
             </ContentContainer>
         </HomeContainer>
     );

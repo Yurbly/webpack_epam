@@ -1,6 +1,8 @@
-import React, {FC} from "react";
+import React, {FC, useCallback} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
+import {IMovieCardProps} from "./list";
+import movieMockImgUrl from "images/movie-mock.png";
 
 const MovieCardContainer = styled.div`
   padding: 0 0 3rem;
@@ -10,7 +12,10 @@ const MovieCardContainer = styled.div`
 `;
 
 const Poster = styled.img`
-  height: 33rem;
+  max-height: 33rem;
+  background: transparent;
+  width: auto;
+  height: auto;
 `;
 
 const TitleYearContainer = styled.div`
@@ -41,16 +46,7 @@ const Genres = styled.div`
     padding: 0.7rem 0 0;
 `;
 
-interface IProps {
-    data: {
-        title: string,
-        genres: Array<any>,
-        poster_path: string,
-        release_date: string
-    }
-}
-
-const MovieCard: FC<IProps> = props => {
+const MovieCard: FC<IMovieCardProps> = props => {
 
     const {data} = props;
     const {title, genres, poster_path, release_date} = data;
@@ -58,10 +54,19 @@ const MovieCard: FC<IProps> = props => {
     const date = new Date(release_date);
     const genresString = genres.join(", ");
 
+    const onError = useCallback((e) => {
+        const target = e.target as HTMLImageElement;
+        target.onerror = null;
+        target.src = movieMockImgUrl;
+    }, []);
+
+    const posterSrc = poster_path || movieMockImgUrl;
+
     return (
         <MovieCardContainer className="search-container">
                 <Poster
-                    src={poster_path}
+                    src={posterSrc}
+                    onError={onError}
                     alt="poster"
                 />
             <TitleYearContainer>
