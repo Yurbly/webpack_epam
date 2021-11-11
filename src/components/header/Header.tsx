@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useCallback, useState} from "react";
 import styled from "styled-components";
 import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
@@ -6,6 +6,7 @@ import colors from "consts/colors";
 import Button from "components/common/Button";
 import NetflixLogo from "components/common/NetflixLogo";
 import commonText from "consts/commonText";
+import AddMovieModal from "components/modals/AddMovieModal";
 
 const HeaderContainer = styled.header`
     position: relative;
@@ -50,6 +51,12 @@ const addButtonStyle = {
 };
 
 const Header: FC = () => {
+
+    const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
+
+    const handleOpenAddMovieModal = useCallback(() => setIsAddMovieModalOpen(true), [])
+    const handleCloseAddMovieModal = useCallback(() => setIsAddMovieModalOpen(false), [])
+
     return (
             <HeaderContainer>
                 <FirstRow>
@@ -57,10 +64,12 @@ const Header: FC = () => {
                     <Button
                         title={commonText.addMovie}
                         buttonStyle={addButtonStyle}
+                        onClick={handleOpenAddMovieModal}
                     />
                 </FirstRow>
                 <Search/>
                 <Background src={headerBackgroundUrl}/>
+                <AddMovieModal isOpen={isAddMovieModalOpen} onClose={handleCloseAddMovieModal}/>
             </HeaderContainer>
     );
 }
