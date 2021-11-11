@@ -1,13 +1,9 @@
 import React, {FC, useCallback, useState} from "react";
 import styled, {css} from "styled-components";
-//@ts-ignore
-import moment from "moment";
 import colors from "consts/colors";
 import {formElement} from "./common";
 //@ts-ignore
 import {DateSingleInput, OnDateChangeProps} from '@datepicker-react/styled';
-
-const dateTemplate = "YYYY-DD-MM";
 
 export const datePickerCss = css`
     ${formElement};
@@ -51,16 +47,15 @@ const Label = styled.label`
 `;
 
 interface IProps {
-    title?: string,
-    placeholder: string,
-    date: string,
-    onChange(date: OnDateChangeProps): void
+    title?: string;
+    placeholder: string;
 }
 
 const DatePickerComponent: FC<IProps> = props => {
 
-    const {title, placeholder, date, onChange} = props;
+    const {title, placeholder} = props;
 
+    const [date, setDate] = useState(new Date());
     const [isPickerShown, setIsPickerShown] = useState(false);
 
     const toggleDatePicker = useCallback(
@@ -69,18 +64,15 @@ const DatePickerComponent: FC<IProps> = props => {
     );
 
     const onDateChange = useCallback(
-        (data: OnDateChangeProps) => {
-            const momentDate = moment(data.date);
-            onChange(momentDate.format(dateTemplate))
-        },[]);
-
-    const momentDate = moment(date, dateTemplate);
+        (data: OnDateChangeProps) => setDate(data.date),
+        []
+    );
 
     return (
         <Label>
             {title}
                 <DateSingleInput
-                    date={momentDate.toDate()}
+                    date={date}
                     onDateChange={onDateChange}
                     placeholder={placeholder}
                     showDatepicker={isPickerShown}

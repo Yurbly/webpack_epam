@@ -1,4 +1,4 @@
-const genres: Array<{id: string, name: string}> = [
+const genres = [
     {
         id: "all",
         name: "all"

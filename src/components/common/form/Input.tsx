@@ -9,39 +9,18 @@ const InputComponent = styled.input<{ height: string }>`
 `;
 
 interface IProps {
-    title: string,
-    value?: string,
-    placeholder: string,
-    height?: string,
-    onChange(value: string): void,
-    maxLength?: number,
-    pattern?: string,
-    type?: "string" | "number",
+    title: string;
+    placeholder: string;
+    height?: string;
 }
 
 const Input: FC<IProps> = props => {
 
-    const {
-        title,
-        placeholder,
-        height,
-        value,
-        onChange,
-        maxLength = 100,
-        type = "string",
-        ...other
-    } = props;
-
+    const {title, placeholder, height} = props;
     return (
         <Label>
             {title}
-            <InputComponent
-                placeholder={placeholder}
-                height={height}
-                value={value}
-                onChange={({target}) => onChange(target.value)}
-                {...other}
-            />
+            <InputComponent placeholder={placeholder} height={height}/>
         </Label>
     )
 }
