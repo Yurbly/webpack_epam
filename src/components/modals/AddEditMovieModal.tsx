@@ -1,11 +1,13 @@
-import React, {CSSProperties, FC} from "react";
+import React, {CSSProperties, FC, useEffect, useState} from "react";
 import styled from "styled-components";
 import ModalComponent from "components/common/Modal";
 import colors from "consts/colors";
 import Input from "components/common/form/Input";
 import Select from "components/common/form/Select";
 import genres from "consts/genres";
-import DatePickerComponent from "../common/form/Datepicker";
+import DatePickerComponent from "components/common/form/Datepicker";
+//@ts-ignore
+import moment from "moment";
 
 const Title = styled.div`
     font-size: 2.5rem;
@@ -46,17 +48,61 @@ const contentStyle: CSSProperties = {
     padding: "3rem"
 };
 
+interface IMovieProps {
+    title: string,
+    poster_path?: string,
+    genres?: string | Array<string>,
+    release_date?: string,
+    rating?: number | string,
+    overview?: string,
+    runtime?: number
+}
+
+const defaultMovieData: IMovieProps = {
+    title: "",
+    poster_path: "",
+    genres: "",
+    release_date: moment().format("YYYY-DD-MM"),
+    rating: "",
+    overview: ""
+};
+
 interface ICustomProps {
-    onClose(): void
+    onClose(): void,
+    data?: IMovieProps,
+    onConfirm(): void
 }
 
 const genresOptions = genres.slice();
-genresOptions.unshift({id: "", name: "Select genre"});
 
-const AddMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
+const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
 
-    const {isOpen, onClose} = props;
+    const {isOpen, onClose, data} = props;
+    const [movieData, setMovieData] = useState(data || defaultMovieData)
 
+    useEffect(() => {
+        if (isOpen && data) {
+            setMovieData(data);
+        }
+    }, [isOpen])
+
+    const {
+        title,
+        poster_path,
+        genres,
+        release_date,
+        rating,
+        overview,
+        runtime
+    } = movieData;
+
+    const onInputFieldChange = (field: string, value: string | number) => {
+        setMovieData((data: IMovieProps)  => ({...data, [field]: value}))
+    }
+
+    const onGenreChange = (value: Array<string>) => {
+        setMovieData((data: IMovieProps) => ({...data, genre: value}))
+    };
     return (
         <ModalComponent
             isOpen={isOpen}
@@ -70,28 +116,41 @@ const AddMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                         <Input
                             title={"Title"}
                             placeholder="The Matrix"
+                            value={title}
+                            onChange={value => onInputFieldChange("title", value)}
                         />
                         <Input
                             title={"Movie url"}
                             placeholder="http://"
+                            value={poster_path}
+                            onChange={value => onInputFieldChange("url", value)}
                         />
                         <Select
                             title="Genre"
+                            placeholder="Select genre"
                             options={genresOptions}
+                            value={genres}
+                            onChange={onGenreChange}
                         />
                     </Column>
                     <Column maxWidth="40%">
                         <DatePickerComponent
                             title={"Release date"}
                             placeholder="Select Date"
+                            date={release_date}
+                            onChange={value => onInputFieldChange("release_date", value)}
                         />
                         <Input
                             title={"Rating"}
                             placeholder="7.8"
+                            value={rating}
+                            onChange={value => onInputFieldChange("rating", value)}
                         />
                         <Input
                             title={"Runtime"}
                             placeholder="minutes"
+                            value={runtime}
+                            onChange={value => onInputFieldChange("runtime", value)}
                         />
                     </Column>
                 </ColumnsContainer>
@@ -99,10 +158,12 @@ const AddMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                     title="Overview"
                     placeholder="More description"
                     height="12.5rem"
+                    value={overview}
+                    onChange={value => onInputFieldChange("overview", value)}
                 />
             </Form>
         </ModalComponent>
     )
 }
 
-export default AddMovieModal;
+export default AddEditMovieModal;

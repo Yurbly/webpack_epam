@@ -6,7 +6,7 @@ import colors from "consts/colors";
 import Button from "components/common/Button";
 import NetflixLogo from "components/common/NetflixLogo";
 import commonText from "consts/commonText";
-import AddMovieModal from "components/modals/AddMovieModal";
+import AddEditMovieModal from "components/modals/AddEditMovieModal";
 
 const HeaderContainer = styled.header`
     position: relative;
@@ -69,7 +69,11 @@ const Header: FC = () => {
                 </FirstRow>
                 <Search/>
                 <Background src={headerBackgroundUrl}/>
-                <AddMovieModal isOpen={isAddMovieModalOpen} onClose={handleCloseAddMovieModal}/>
+                <AddEditMovieModal
+                    isOpen={isAddMovieModalOpen}
+                    onClose={handleCloseAddMovieModal}
+                    onConfirm={() => {}}
+                />
             </HeaderContainer>
     );
 }
