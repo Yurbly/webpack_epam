@@ -2,6 +2,7 @@ import React, {CSSProperties, FC} from "react";
 import styled from "styled-components";
 import ModalComponent from "components/common/Modal";
 import colors from "consts/colors";
+import genres from "consts/genres";
 import ReactModal from "react-modal";
 import Button from "../common/Button";
 
@@ -31,6 +32,9 @@ interface ICustomProps {
     onClose(): void,
     onConfirm(): void
 }
+
+const genresOptions = genres.slice();
+genresOptions.unshift({id: "", name: "Select genre"});
 
 const DeleteMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
 

@@ -2,11 +2,11 @@ import React, {FC, useCallback, useState} from "react";
 import styled from "styled-components";
 import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
-import colors from "consts/colors";
 import Button from "components/common/Button";
 import NetflixLogo from "components/common/NetflixLogo";
-import commonText from "consts/commonText";
 import AddEditMovieModal from "components/modals/AddEditMovieModal";
+import colors from "consts/colors";
+import commonText from "consts/commonText";
 
 const HeaderContainer = styled.header`
     position: relative;
