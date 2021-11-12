@@ -1,14 +1,16 @@
-import React, {FC, useCallback} from "react";
+import React, {FC, useCallback, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 import {IMovieCardProps} from "./list";
 import movieMockImgUrl from "images/movie-mock.png";
+import PopupMenu from "components/common/PopupMenu";
 
 const MovieCardContainer = styled.div`
   padding: 0 0 3rem;
   display: flex;
   flex-flow: column;
   width: 30%;
+  position: relative;
 `;
 
 const Poster = styled.img`
@@ -16,6 +18,12 @@ const Poster = styled.img`
   background: transparent;
   width: auto;
   height: auto;
+`;
+
+const MenuContainer = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 `;
 
 const TitleYearContainer = styled.div`
@@ -47,11 +55,13 @@ const Genres = styled.div`
 `;
 
 const MovieCard: FC<IMovieCardProps> = props => {
+    const {data, openEditModal, openDeleteModal} = props;
 
-    const {data} = props;
+    const [isMenuShown, setIsMenuShown] = useState(false)
+
     const {title, genres, poster_path, release_date} = data;
-
     const date = new Date(release_date);
+
     const genresString = genres.join(", ");
 
     const onError = useCallback((e) => {
@@ -62,13 +72,36 @@ const MovieCard: FC<IMovieCardProps> = props => {
 
     const posterSrc = poster_path || movieMockImgUrl;
 
+    const menuItems = [
+        {
+            id: "edit",
+            name: "Edit",
+            onClick: openEditModal
+        },
+        {
+            id: "delete",
+            name: "Delete",
+            onClick: openDeleteModal
+        }
+    ];
+
+
     return (
-        <MovieCardContainer className="search-container">
-                <Poster
-                    src={posterSrc}
-                    onError={onError}
-                    alt="poster"
+        <MovieCardContainer
+            onMouseEnter={() => setIsMenuShown(true)}
+            onMouseLeave={() => setIsMenuShown(false)}
+        >
+            {isMenuShown && <MenuContainer>
+                <PopupMenu
+                    items={menuItems}
+                    withIcon
                 />
+            </MenuContainer>}
+            <Poster
+                src={posterSrc}
+                onError={onError}
+                alt="poster"
+            />
             <TitleYearContainer>
                 <Title>{title}</Title>
                 <Year>{date.getFullYear()}</Year>
