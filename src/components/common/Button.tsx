@@ -21,7 +21,7 @@ const ButtonComponent = styled.button`
     cursor: pointer;
 `;
 
-interface IProps {
+interface IButtonProps {
     title: string,
     onClick?: React.MouseEventHandler<HTMLButtonElement>,
     buttonStyle?: {},
@@ -29,7 +29,7 @@ interface IProps {
 }
 
 
-const Button: FC<IProps> = props => {
+const Button: FC<IButtonProps> = props => {
 
     const {title, onClick, buttonStyle, containerStyle} = props;
 

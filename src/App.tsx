@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "components/layout/Layout";
-import HomeContainer from "containers/Home";
+import Home from "containers/Home";
 
 const App = () => <Layout>
-    <HomeContainer/>
+    <Home/>
 </Layout>
 
 export default App;

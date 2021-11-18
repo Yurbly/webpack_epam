@@ -1,4 +1,4 @@
-const colors: any = {
+export default {
     white: "#FFFFFF",
     lightGray: "#555555",
     gray: "#424242",
@@ -6,5 +6,3 @@ const colors: any = {
     absBlack: "#000000",
     red: "#F65261"
 };
-
-export default colors;

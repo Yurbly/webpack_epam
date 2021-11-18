@@ -5,6 +5,7 @@ import headerBackgroundUrl from "images/header_background.png";
 import colors from "consts/colors";
 import Button from "components/common/Button";
 import NetflixLogo from "components/common/NetflixLogo";
+import commonText from "consts/commonText";
 
 const HeaderContainer = styled.header`
     position: relative;
@@ -54,7 +55,7 @@ const Header: FC = () => {
                 <FirstRow>
                     <NetflixLogo/>
                     <Button
-                        title="+ ADD MOVIE"
+                        title={commonText.addMovie}
                         buttonStyle={addButtonStyle}
                     />
                 </FirstRow>

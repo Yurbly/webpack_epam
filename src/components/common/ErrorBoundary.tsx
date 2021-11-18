@@ -1,6 +1,7 @@
 import React, {ErrorInfo} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
+import errorMessages from "consts/errorMessages";
 
 const ErrorContainer = styled.div`
   margin: 0 0 2rem;
@@ -14,17 +15,17 @@ const ErrorDetails = styled.details`
   color: ${colors.white}
 `;
 
-interface IState {
+interface IErrorBoundaryState {
     error: Error,
     errorInfo: ErrorInfo
 }
 
-interface IProps {
+interface IErrorBoundaryProps {
 
 }
 
-class ErrorBoundary extends React.Component<IProps, IState> {
-    constructor(props: IProps) {
+class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
+    constructor(props: IErrorBoundaryProps) {
         super(props);
         this.state= { error: null, errorInfo: null };
     }
@@ -40,7 +41,7 @@ class ErrorBoundary extends React.Component<IProps, IState> {
         if (this.state.errorInfo) {
             return (
                 <ErrorContainer>
-                    <ErrorTitle>Whooops! Something went wrong...</ErrorTitle>
+                    <ErrorTitle>{errorMessages.common}</ErrorTitle>
                     <ErrorDetails style={{ whiteSpace: 'pre-wrap' }}>
                         {this.state.error && this.state.error.toString()}
                         <br />

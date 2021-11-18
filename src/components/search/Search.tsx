@@ -2,6 +2,7 @@ import React, {FC, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 import Button from "components/common/Button";
+import commonText from "consts/commonText";
 
 const SearchContainer = styled.div`
   display: flex;
@@ -40,11 +41,10 @@ const SearchInput = styled.input`
     border: none;
     font-size: 1.25rem;
     outline: none;
-    
-    ::placeholder {
-        color: white;
-        font-size: 1.25rem;
-        opacity: 0.3;
+    color: ${colors.white};
+   
+    :focus::placeholder {
+      color: transparent;
     }
 `;
 
@@ -58,10 +58,10 @@ const Search: FC = () => {
                 <SearchInput
                     value={search}
                     onChange={e => setSearch(e.target.value)}
-                    placeholder="What do you want to watch?"
+                    placeholder={commonText.searchPlaceHolder}
                 />
                 <Button
-                    title="SEARCH"
+                    title={commonText.buttonTitles.search}
                     onClick={() => {}}
                 />
             </SearchRow>

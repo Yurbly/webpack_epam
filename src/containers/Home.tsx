@@ -6,30 +6,7 @@ import Tabs from "components/tabs/Tabs";
 import MoviesList from "components/movie/list/MoviesList";
 import ErrorBoundary from "components/common/ErrorBoundary";
 import WithFooter from "components/common/WithFooter";
-
-const tabs = [
-    {
-        id: "all",
-        name: "all"
-    },
-    {
-        id: "documentary",
-        name: "documentary"
-    },
-    {
-        id: "comedy",
-        name: "comedy"
-    },
-    {
-        id: "horror",
-        name: "horror"
-    },
-    {
-        id: "crime",
-        name: "crime"
-    }
-];
-
+import tabsData from "consts/tabsData";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -61,17 +38,17 @@ const MoviesContainer = styled.div`
     color: white;
 `;
 
-const Main: FC = () => {
+const Home: FC = () => {
 
-    const [activeTabId, setActiveTabId] = useState((tabs[0] && tabs[0].id) || "");
+    const [activeTabId, setActiveTabId] = useState((tabsData[0] && tabsData[0].id) || "");
     const [movies, setMovies] = useState([]);
 
     const getMovies = useCallback(async () => {
-        const tabData = tabs.find(t => t.id === activeTabId);
+        const tabData = tabsData.find(t => t.id === activeTabId);
 
         const backendUrl = new URL("http://localhost:4000/movies");
 
-        const isFiltered = activeTabId !== tabs[0].id;
+        const isFiltered = activeTabId !== tabsData[0].id;
         if (isFiltered) {
             backendUrl.searchParams.append("filter", tabData.name);
         }
@@ -92,7 +69,7 @@ const Main: FC = () => {
                 <Header/>
                 <ContentContainer>
                     <Tabs
-                        tabs={tabs}
+                        tabs={tabsData}
                         activeTabId={activeTabId}
                         onTabChange={setActiveTabId}
                     />
@@ -107,5 +84,4 @@ const Main: FC = () => {
     );
 }
 
-export default Main;
-
+export default Home;

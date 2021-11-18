@@ -20,14 +20,14 @@ const Area = styled.div`
     margin: 1rem 0;
 `;
 
-interface IProps {
+interface ITabsProps {
     tabs: Array<any>,
     onTabChange(str: string): void,
     activeTabId: string,
     controls?: ReactNode
 }
 
-const Tabs: FC<IProps> = props => {
+const Tabs: FC<ITabsProps> = props => {
     const {tabs, onTabChange, activeTabId, controls} = props;
 
     return (
