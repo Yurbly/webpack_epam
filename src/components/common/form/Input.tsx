@@ -13,12 +13,25 @@ interface IProps {
     value?: string,
     placeholder: string,
     height?: string,
-    onChange(value: string): void
+    onChange(value: string): void,
+    maxLength?: number,
+    pattern?: string,
+    type?: "string" | "number",
 }
 
 const Input: FC<IProps> = props => {
 
-    const {title, placeholder, height, value, onChange} = props;
+    const {
+        title,
+        placeholder,
+        height,
+        value,
+        onChange,
+        maxLength = 100,
+        type = "string",
+        ...other
+    } = props;
+
     return (
         <Label>
             {title}
@@ -27,6 +40,7 @@ const Input: FC<IProps> = props => {
                 height={height}
                 value={value}
                 onChange={({target}) => onChange(target.value)}
+                {...other}
             />
         </Label>
     )
