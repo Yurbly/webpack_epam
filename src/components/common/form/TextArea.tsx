@@ -13,13 +13,12 @@ interface IProps {
     value?: string,
     placeholder: string,
     height?: string,
-    onChange(value: string): void,
-    maxLength?: number
+    onChange(value: string): void
 }
 
 const TextArea: FC<IProps> = props => {
 
-    const {title, placeholder, height, value, onChange, ...other} = props;
+    const {title, placeholder, height, value, onChange} = props;
     return (
         <Label>
             {title}
@@ -28,7 +27,6 @@ const TextArea: FC<IProps> = props => {
                 height={height}
                 value={value}
                 onChange={({target}) => onChange(target.value)}
-                {...other}
             />
         </Label>
     )

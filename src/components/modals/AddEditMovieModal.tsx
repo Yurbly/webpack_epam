@@ -1,13 +1,16 @@
-import React, {CSSProperties, FC, useEffect, useState} from "react";
+import React, {CSSProperties, FC, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
+//@ts-ignore
+import moment from "moment";
 import ModalComponent from "components/common/Modal";
 import colors from "consts/colors";
 import Input from "components/common/form/Input";
-import Select from "components/common/form/Select";
+import SelectComponent, {IOption} from "components/common/form/Select";
 import genres from "consts/genres";
 import DatePickerComponent from "components/common/form/Datepicker";
-//@ts-ignore
-import moment from "moment";
+import Button from "components/common/Button";
+import buttonTypes from "consts/buttonTypes";
+import TextArea from "components/common/form/TextArea";
 
 const Title = styled.div`
     font-size: 2.5rem;
@@ -42,6 +45,15 @@ const Column = styled.div<{ maxWidth: string }>`
     margin: 0 2rem 0 0;
 `;
 
+const Controls = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    > div:first-child {
+        margin: 0 1rem 0 0;
+    }
+`;
+
 const contentStyle: CSSProperties = {
     display: "flex",
     flexFlow: "column",
@@ -53,9 +65,9 @@ interface IMovieProps {
     poster_path?: string,
     genres?: string | Array<string>,
     release_date?: string,
-    rating?: number | string,
+    rating?: number | "",
     overview?: string,
-    runtime?: number
+    runtime?: number | ""
 }
 
 const defaultMovieData: IMovieProps = {
@@ -64,7 +76,8 @@ const defaultMovieData: IMovieProps = {
     genres: "",
     release_date: moment().format("YYYY-DD-MM"),
     rating: "",
-    overview: ""
+    overview: "",
+    runtime: ""
 };
 
 interface ICustomProps {
@@ -73,7 +86,13 @@ interface ICustomProps {
     onConfirm(): void
 }
 
-const genresOptions = genres.slice();
+const genresOptions: Array<IOption> = [];
+genres.forEach(g => {
+    if (g.id === "all") {
+        return
+    }
+    genresOptions.push({value: g.id, label: g.name});
+});
 
 const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
 
@@ -89,20 +108,20 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
     const {
         title,
         poster_path,
-        genres,
         release_date,
         rating,
         overview,
         runtime
     } = movieData;
 
-    const onInputFieldChange = (field: string, value: string | number) => {
+    const onInputFieldChange = (field: string, value: string | number | Array<string>) => {
         setMovieData((data: IMovieProps)  => ({...data, [field]: value}))
     }
 
     const onGenreChange = (value: Array<string>) => {
-        setMovieData((data: IMovieProps) => ({...data, genre: value}))
+        setMovieData((data: IMovieProps) => ({...data, genres: value}))
     };
+
     return (
         <ModalComponent
             isOpen={isOpen}
@@ -123,14 +142,14 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                             title={"Movie url"}
                             placeholder="http://"
                             value={poster_path}
-                            onChange={value => onInputFieldChange("url", value)}
+                            onChange={value => onInputFieldChange("poster_path", value)}
                         />
-                        <Select
+                        <SelectComponent
                             title="Genre"
-                            placeholder="Select genre"
                             options={genresOptions}
-                            value={genres}
+                            value={movieData.genres}
                             onChange={onGenreChange}
+                            isMulti
                         />
                     </Column>
                     <Column maxWidth="40%">
@@ -154,7 +173,7 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                         />
                     </Column>
                 </ColumnsContainer>
-                <Input
+                <TextArea
                     title="Overview"
                     placeholder="More description"
                     height="12.5rem"
@@ -162,6 +181,14 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                     onChange={value => onInputFieldChange("overview", value)}
                 />
             </Form>
+            <Controls>
+                <Button
+                    title={"RESET"}
+                    styleType={buttonTypes.cancel}
+                    onClick={useCallback(() => setMovieData(defaultMovieData), [])}
+                />
+                <Button title={"SUBMIT"} onClick={() => console.log("submit")}/>
+            </Controls>
         </ModalComponent>
     )
 }
