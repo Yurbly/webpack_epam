@@ -6,7 +6,7 @@ import Tabs from "components/tabs/Tabs";
 import MoviesList from "components/movie/list/MoviesList";
 import ErrorBoundary from "components/common/ErrorBoundary";
 import WithFooter from "components/common/WithFooter";
-import genres from "consts/genres";
+import tabsData from "consts/tabsData";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -40,15 +40,15 @@ const MoviesContainer = styled.div`
 
 const Home: FC = () => {
 
-    const [activeTabId, setActiveTabId] = useState((genres[0] && genres[0].id) || "");
+    const [activeTabId, setActiveTabId] = useState((tabsData[0] && tabsData[0].id) || "");
     const [movies, setMovies] = useState([]);
 
     const getMovies = useCallback(async () => {
-        const tabData = genres.find(t => t.id === activeTabId);
+        const tabData = tabsData.find(t => t.id === activeTabId);
 
         const backendUrl = new URL("http://localhost:4000/movies");
 
-        const isFiltered = activeTabId !== genres[0].id;
+        const isFiltered = activeTabId !== tabsData[0].id;
         if (isFiltered) {
             backendUrl.searchParams.append("filter", tabData.name);
         }
@@ -69,7 +69,7 @@ const Home: FC = () => {
                 <Header/>
                 <ContentContainer>
                     <Tabs
-                        tabs={genres}
+                        tabs={tabsData}
                         activeTabId={activeTabId}
                         onTabChange={setActiveTabId}
                     />
