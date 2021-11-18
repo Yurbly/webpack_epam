@@ -137,12 +137,14 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                             placeholder="The Matrix"
                             value={title}
                             onChange={value => onInputFieldChange("title", value)}
+                            maxLength={100}
                         />
                         <Input
                             title={"Movie url"}
                             placeholder="http://"
                             value={poster_path}
                             onChange={value => onInputFieldChange("poster_path", value)}
+                            maxLength={1000}
                         />
                         <SelectComponent
                             title="Genre"
@@ -164,12 +166,14 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                             placeholder="7.8"
                             value={rating}
                             onChange={value => onInputFieldChange("rating", value)}
+                            type="number"
                         />
                         <Input
                             title={"Runtime"}
                             placeholder="minutes"
                             value={runtime}
                             onChange={value => onInputFieldChange("runtime", value)}
+                            type="number"
                         />
                     </Column>
                 </ColumnsContainer>
@@ -179,6 +183,7 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                     height="12.5rem"
                     value={overview}
                     onChange={value => onInputFieldChange("overview", value)}
+                    maxLength={5000}
                 />
             </Form>
             <Controls>
