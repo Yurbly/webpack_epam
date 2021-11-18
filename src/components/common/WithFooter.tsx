@@ -13,7 +13,7 @@ const Container = styled.div`
   margin: 0 0 3rem;
 `;
 
-const Footer = styled.div`
+const Footer = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ const Footer = styled.div`
   padding: 1rem 0;
 `;
 
-const Layout: FC = (props) =>
+const WithFooter: FC = (props) =>
     <Container>
         {props.children}
         <Footer>
@@ -32,5 +32,5 @@ const Layout: FC = (props) =>
         </Footer>
     </Container>;
 
-export default Layout
+export default WithFooter
 

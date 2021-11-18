@@ -1,6 +1,7 @@
 import React, {FC} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
+import commonText from "consts/commonText";
 
 const NetflixRoulette = styled.span`
     display: flex;
@@ -17,8 +18,8 @@ const Bold = styled.span`
 const NetflixLogo: FC = () => {
     return (
         <NetflixRoulette>
-            <Bold>netflix</Bold>
-            roulette
+            <Bold>{commonText.netflix}</Bold>
+            {commonText.roulette}
         </NetflixRoulette>
     );
 }

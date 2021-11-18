@@ -33,13 +33,13 @@ const Underline = styled.div<IUnderlineProps>`
     ${props => !props.isActive && "visibility: hidden"};
 `;
 
-interface IProps {
+interface ITabProps {
     name: string,
     isActive: boolean,
     onClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Tab: FC<IProps> = ({name, isActive, onClick}) =>
+const Tab: FC<ITabProps> = ({name, isActive, onClick}) =>
     <TabContainer onClick={onClick}>
         <TabName>{name}</TabName>
         <Underline isActive={isActive}/>

@@ -27,7 +27,7 @@ const ButtonComponent = styled.button<{styleType?: string}>`
     ` }
 `;
 
-interface IProps {
+interface IButtonProps {
     title: string,
     styleType?: string,
     onClick?: React.MouseEventHandler<HTMLButtonElement>,
@@ -36,7 +36,7 @@ interface IProps {
 }
 
 
-const Button: FC<IProps> = props => {
+const Button: FC<IButtonProps> = props => {
 
     const {title, onClick, buttonStyle, containerStyle, styleType} = props;
 
