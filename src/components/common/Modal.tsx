@@ -20,7 +20,7 @@ const defaultStyle = {
         alignItems: "center",
         position: "relative",
         maxWidth: "100vw",
-        maxHeight: "100vh",
+        maxHeight: "80vh",
         width: "50%",
         padding: "2rem"
     },
