@@ -32,5 +32,5 @@ module.exports = {
             containers: path.resolve(__dirname, 'src/containers/'),
             images: path.resolve(__dirname, 'public/images'),
         },
-    },
+    }
 }
