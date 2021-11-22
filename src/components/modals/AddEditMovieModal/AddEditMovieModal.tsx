@@ -1,58 +1,18 @@
 import React, {CSSProperties, FC, useCallback, useEffect, useState} from "react";
-import styled from "styled-components";
 //@ts-ignore
 import moment from "moment";
 import ModalComponent from "components/common/Modal";
 import Input from "components/common/form/Input";
-import SelectComponent, {IOption} from "components/common/form/Select";
-import genres from "consts/genres";
+import SelectComponent from "components/common/form/Select/Select";
+import {IOption} from "components/common/form/Select/types";
 import DatePickerComponent from "components/common/form/Datepicker";
 import Button from "components/common/Button";
-import colors from "consts/colors";
-import buttonTypes from "consts/buttonTypes";
 import TextArea from "components/common/form/TextArea";
-
-const Title = styled.div`
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    color: ${colors.white};
-    letter-spacing: 1px;
-    width: 100%;
-`;
-
-const Form = styled.form`
-    display: flex;
-    flex-flow: column;
-    width: 100%;
-    margin: 1rem 0;
-`;
-
-const ColumnsContainer = styled.div`
-    display: flex;
-    width: 100%;
-    margin: 1rem 0;
-    
-    div:last-child {
-        margin-right: 0;
-    }
-`;
-
-const Column = styled.div<{ maxWidth: string }>`
-    display: flex;
-    flex-flow: column;
-    width: 100%;
-    max-width: ${props => props.maxWidth || "60%;"};
-    margin: 0 2rem 0 0;
-`;
-
-const Controls = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    > div:first-child {
-        margin: 0 1rem 0 0;
-    }
-`;
+import genres from "consts/genres";
+import buttonTypes from "consts/buttonTypes";
+import {dateTemplate} from "consts/dateTemplate";
+import {Column, ColumnsContainer, Controls, Form, Title} from "./styled";
+import {ICustomProps, IMovieProps} from "./types";
 
 const contentStyle: CSSProperties = {
     display: "flex",
@@ -60,31 +20,15 @@ const contentStyle: CSSProperties = {
     padding: "3rem"
 };
 
-interface IMovieProps {
-    title: string,
-    poster_path?: string,
-    genres?: string | Array<string>,
-    release_date?: string,
-    rating?: number | "",
-    overview?: string,
-    runtime?: number | ""
-}
-
 const defaultMovieData: IMovieProps = {
     title: "",
     poster_path: "",
     genres: "",
-    release_date: moment().format("YYYY-DD-MM"),
+    release_date: moment().format(dateTemplate),
     rating: "",
     overview: "",
     runtime: ""
 };
-
-interface ICustomProps {
-    onClose(): void,
-    data?: IMovieProps,
-    onConfirm(): void
-}
 
 const genresOptions: Array<IOption> = [];
 genres.forEach(g => {

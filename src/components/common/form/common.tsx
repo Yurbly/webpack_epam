@@ -29,3 +29,11 @@ export const Label = styled.label`
     width: 100%;
     margin: 0 0 2rem
 `;
+
+export interface IInputProps {
+    title: string,
+    value?: string,
+    placeholder: string,
+    height?: string,
+    onChange(value: string): void
+}

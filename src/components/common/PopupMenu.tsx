@@ -50,7 +50,7 @@ const MenuItem = styled.div`
   padding: 0.5rem;
 `;
 
-interface IProps {
+interface IMenuProps {
     withIcon?: boolean,
     items: Array<{
         id: string,
@@ -59,8 +59,7 @@ interface IProps {
     }>
 }
 
-
-const PopupMenu: FC<IProps> = props => {
+const PopupMenu: FC<IMenuProps> = props => {
 
     const {items, withIcon} = props;
 

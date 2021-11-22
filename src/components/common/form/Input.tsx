@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import styled from "styled-components";
-import {formElement, Label} from "./common";
+import {formElement, IInputProps, Label} from "./common";
 
 const InputComponent = styled.input<{ height: string }>`
     ${formElement};
@@ -8,15 +8,7 @@ const InputComponent = styled.input<{ height: string }>`
     ${props => props.height && `::placeholder {position: absolute; top: -calc(${props.height}/2)`};
 `;
 
-interface IProps {
-    title: string,
-    value?: string,
-    placeholder: string,
-    height?: string,
-    onChange(value: string): void
-}
-
-const Input: FC<IProps> = props => {
+const Input: FC<IInputProps> = props => {
 
     const {title, placeholder, height, value, onChange} = props;
     return (

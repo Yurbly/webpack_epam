@@ -6,8 +6,7 @@ import colors from "consts/colors";
 import {formElement} from "./common";
 //@ts-ignore
 import {DateSingleInput, OnDateChangeProps} from '@datepicker-react/styled';
-
-const dateTemplate = "YYYY-MM-DD";
+import { dateTemplate } from "consts/dateTemplate";
 
 export const datePickerCss = css`
     ${formElement};
@@ -50,14 +49,14 @@ const Label = styled.label`
     }
 `;
 
-interface IProps {
+interface IDatePickerProps {
     title?: string,
     placeholder: string,
     date: string,
     onChange(date: OnDateChangeProps): void
 }
 
-const DatePickerComponent: FC<IProps> = props => {
+const DatePickerComponent: FC<IDatePickerProps> = props => {
 
     const {title, placeholder, date, onChange} = props;
 
