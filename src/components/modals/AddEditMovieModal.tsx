@@ -3,12 +3,12 @@ import styled from "styled-components";
 //@ts-ignore
 import moment from "moment";
 import ModalComponent from "components/common/Modal";
-import colors from "consts/colors";
 import Input from "components/common/form/Input";
 import SelectComponent, {IOption} from "components/common/form/Select";
 import genres from "consts/genres";
 import DatePickerComponent from "components/common/form/Datepicker";
 import Button from "components/common/Button";
+import colors from "consts/colors";
 import buttonTypes from "consts/buttonTypes";
 import TextArea from "components/common/form/TextArea";
 
@@ -178,7 +178,7 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
                     placeholder="More description"
                     height="12.5rem"
                     value={overview}
-                    onChange={value => onInputFieldChange("overview", value)}
+                    onChange={(value: string) => onInputFieldChange("overview", value)}
                 />
             </Form>
             <Controls>
