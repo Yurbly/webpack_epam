@@ -7,7 +7,7 @@ import {formElement} from "./common";
 //@ts-ignore
 import {DateSingleInput, OnDateChangeProps} from '@datepicker-react/styled';
 
-const dateTemplate = "YYYY-DD-MM";
+const dateTemplate = "YYYY-MM-DD";
 
 export const datePickerCss = css`
     ${formElement};

@@ -24,12 +24,18 @@ export interface IOption {
 
 type IsMulti = false;
 
-interface IProps {
+interface ISelectProps {
     title: string,
     options: Array<IOption>,
     isMulti?: boolean,
     value: Array<string> | string,
     onChange(value: Array<string> | string): void
+}
+
+interface IGetSelectedProps {
+    options: Array<IOption>,
+    value: string | string[],
+    isMulti: boolean
 }
 
 const customStyles: StylesConfig<IOption, IsMulti> = {
@@ -69,7 +75,15 @@ const customStyles: StylesConfig<IOption, IsMulti> = {
     multiValueLabel: (provided: CSSObjectWithLabel) => ({...provided, color: colors.white})
 }
 
-const SelectComponent: FC<IProps> = props => {
+const getSelected = ({options, value, isMulti} : IGetSelectedProps) => {
+    if (isMulti && value instanceof Array) {
+        const valueLowerCased = value.map((v: string) => v.toLowerCase());
+        return options.filter(o => valueLowerCased.includes(o.value))
+    }
+    return options.find(o => (value as string).toLowerCase() === o.value);
+}
+
+const SelectComponent: FC<ISelectProps> = props => {
 
     const {title, options, isMulti, value, onChange} = props;
 
@@ -82,9 +96,7 @@ const SelectComponent: FC<IProps> = props => {
         ? handleMultipleChange
         : ((option: IOption) => onChange(option.value));
 
-    const selected: Array<IOption> | IOption = isMulti
-        ? options.filter(o => value.includes(o.value))
-        : options.find(o => value === o.value);
+    const selected: Array<IOption> | IOption = getSelected({options, value, isMulti});
 
     return (
         <Label>
