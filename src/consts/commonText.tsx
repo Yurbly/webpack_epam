@@ -6,6 +6,16 @@ export default {
     buttonTitles: {
         search: "SEARCH",
         reset: "RESET",
-    }
+    },
+    deleteModal: {
+        title: "Delete movie",
+        message: "Are you sure you want to delete this movie?"
+    },
+    common: {
+        confirm: "Confirm",
+        delete: "Delete",
+        edit: "Edit"
+    },
+    noMoviesFound: "No movies found"
 };
 

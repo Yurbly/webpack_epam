@@ -3,7 +3,8 @@ import styled from "styled-components";
 import ModalComponent from "components/common/Modal";
 import colors from "consts/colors";
 import ReactModal from "react-modal";
-import Button from "../common/Button";
+import Button from "components/common/Button";
+import commonText from "consts/commonText";
 
 const Title = styled.div`
     font-size: 2.5rem;
@@ -27,12 +28,12 @@ const contentStyle: CSSProperties = {
     maxWidth: "45rem"
 };
 
-interface ICustomProps {
+interface ICustomModalProps {
     onClose(): void,
     onConfirm(): void
 }
 
-const DeleteMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
+const DeleteMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
 
     const {isOpen, onClose, onConfirm} = props;
 
@@ -42,10 +43,10 @@ const DeleteMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
             contentStyle={contentStyle}
             onClose={onClose}
         >
-            <Title>Delete movie</Title>
-            <Message>Are you sure you want to delete this movie?</Message>
+            <Title>{commonText.deleteModal.title}</Title>
+            <Message>{commonText.deleteModal.message}</Message>
             <Button
-                title="Confirm"
+                title={commonText.common.confirm}
                 onClick={onConfirm}
                 buttonStyle={{color: colors.white, background: colors.red}}
                 containerStyle={{alignSelf: "flex-end"}}

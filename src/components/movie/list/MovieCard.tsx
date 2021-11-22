@@ -3,7 +3,8 @@ import styled from "styled-components";
 import colors from "consts/colors";
 import {IMovieCardProps} from "./list";
 import movieMockImgUrl from "images/movie-mock.png";
-import PopupMenu from "components/common/PopupMenu";
+import PopupMenu from "components/common/PopupMenu/PopupMenu";
+import commonText from "consts/commonText";
 
 const MovieCardContainer = styled.div`
   padding: 0 0 3rem;
@@ -75,12 +76,12 @@ const MovieCard: FC<IMovieCardProps> = props => {
     const menuItems = [
         {
             id: "edit",
-            name: "Edit",
+            name: commonText.common.edit,
             onClick: openEditModal
         },
         {
             id: "delete",
-            name: "Delete",
+            name: commonText.common.delete,
             onClick: openDeleteModal
         }
     ];
