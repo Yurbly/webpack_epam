@@ -12,7 +12,7 @@ import genres from "consts/genres";
 import buttonTypes from "consts/buttonTypes";
 import {dateTemplate} from "consts/dateTemplate";
 import {Column, ColumnsContainer, Controls, Form, Title} from "./styled";
-import {ICustomProps, IMovieProps} from "./types";
+import {ICustomModalProps, IMovieProps} from "./types";
 
 const contentStyle: CSSProperties = {
     display: "flex",
@@ -38,7 +38,7 @@ genres.forEach(g => {
     genresOptions.push({value: g.id, label: g.name});
 });
 
-const AddEditMovieModal: FC<ReactModal.Props & ICustomProps> = props => {
+const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
 
     const {isOpen, onClose, data} = props;
     const [movieData, setMovieData] = useState(data || defaultMovieData)

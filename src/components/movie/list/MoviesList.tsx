@@ -4,6 +4,7 @@ import {IMovieCardData, IMoviesListProps} from "./list";
 import styled from "styled-components";
 import DeleteMovieModal from "components/modals/DeleteMovieModal";
 import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
+import errorMessages from "consts/errorMessages";
 
 const NoMovies = styled.h3`
     color: white;
@@ -16,7 +17,7 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
 
     const {movies} = props;
     if (!movies || !movies.length) {
-        return <NoMovies>No movies found</NoMovies>
+        return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
     }
 
     const editedMovieData = movies.find(m => m.id === editedMovieId);

@@ -8,7 +8,7 @@ export interface IMovieProps {
     runtime?: number | ""
 }
 
-export interface ICustomProps {
+export interface ICustomModalProps {
     onClose(): void,
     data?: IMovieProps,
     onConfirm(): void

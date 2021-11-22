@@ -34,11 +34,11 @@ const SelectComponent: FC<ISelectProps> = props => {
     const handleMultipleChange = useCallback((options: Array<IOption>) => {
         const mappedOptions = options.map(option => option.value);
         onChange(mappedOptions);
-    }, []);
+    }, [onChange]);
 
-    const handleChange = isMulti
-        ? handleMultipleChange
-        : ((option: IOption) => onChange(option.value));
+    const handleSingleChange = useCallback(((option: IOption) => onChange(option.value)), [onChange])
+
+    const handleChange = isMulti ? handleMultipleChange : handleSingleChange;
 
     const selected: Array<IOption> | IOption = getSelected({options, value, isMulti});
 
