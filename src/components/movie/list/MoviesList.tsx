@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import {IMovieCardData, IMoviesListProps} from "./list";
 import styled from "styled-components";
 import DeleteMovieModal from "components/modals/DeleteMovieModal";
-import AddEditMovieModal from "components/modals/AddEditMovieModal";
+import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
 
 const NoMovies = styled.h3`
     color: white;

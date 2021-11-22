@@ -4,7 +4,7 @@ import Search from "components/search/Search";
 import headerBackgroundUrl from "images/header_background.png";
 import Button from "components/common/Button";
 import NetflixLogo from "components/common/NetflixLogo";
-import AddEditMovieModal from "components/modals/AddEditMovieModal";
+import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
 import colors from "consts/colors";
 import commonText from "consts/commonText";
 
