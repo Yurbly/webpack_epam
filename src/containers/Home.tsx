@@ -42,6 +42,7 @@ const Home: FC = () => {
 
     const [activeTabId, setActiveTabId] = useState((genres[0] && genres[0].id) || "");
     const [movies, setMovies] = useState([]);
+    const [activeMovie, setActiveMovie] = useState(null);
 
     const getMovies = useCallback(async () => {
         const tabData = genres.find(t => t.id === activeTabId);
@@ -66,7 +67,10 @@ const Home: FC = () => {
     return (
         <WithFooter>
             <HomeContainer>
-                <Header/>
+                <Header
+                    activeMovie={activeMovie}
+                    activateSearch={() => setActiveMovie(null)}
+                />
                 <ContentContainer>
                     <Tabs
                         tabs={genres}
@@ -75,7 +79,7 @@ const Home: FC = () => {
                     />
                     <ErrorBoundary>
                         <MoviesContainer>
-                            <MoviesList movies={movies}/>
+                            <MoviesList movies={movies} setActiveMovie={setActiveMovie}/>
                         </MoviesContainer>
                     </ErrorBoundary>
                 </ContentContainer>

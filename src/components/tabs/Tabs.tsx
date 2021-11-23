@@ -28,7 +28,12 @@ interface ITabsProps {
 }
 
 const Tabs: FC<ITabsProps> = props => {
-    const {tabs, onTabChange, activeTabId, controls} = props;
+    const {
+        tabs,
+        onTabChange,
+        activeTabId,
+        controls
+    } = props;
 
     return (
             <TabsHeader>
