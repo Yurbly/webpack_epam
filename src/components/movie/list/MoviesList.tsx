@@ -1,6 +1,6 @@
-import React, {FC, useState} from "react";
+import React, {FC, SyntheticEvent, useCallback, useMemo, useState} from "react";
 import MovieCard from "./MovieCard";
-import {IMovieCardData, IMoviesListProps} from "./list";
+import {IMovieProps, IMoviesListProps} from "../movies";
 import styled from "styled-components";
 import DeleteMovieModal from "components/modals/DeleteMovieModal";
 import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
@@ -12,24 +12,44 @@ const NoMovies = styled.h3`
 
 const MoviesList: FC<IMoviesListProps> = (props) => {
 
-    const [deletedMovieId, setDeletedMovieId] = useState(null);
-    const [editedMovieId, setEditedMovieId] = useState(null);
-
-    const {movies} = props;
+    const {movies, setActiveMovie} = props;
     if (!movies || !movies.length) {
         return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
     }
 
-    const editedMovieData = movies.find(m => m.id === editedMovieId);
+    const [deletedMovieId, setDeletedMovieId] = useState(null);
+    const [editedMovieId, setEditedMovieId] = useState(null);
+
+
+    const editedMovieData = useMemo(() => movies.find(m => m.id === editedMovieId), [editedMovieId]);
+
+    const onCardClick = useCallback((id: string) => {
+        const clickedMovie = movies.find(m => m.id === id);
+        if (!clickedMovie) {
+            return
+        }
+        setActiveMovie(clickedMovie);
+    },[movies, setActiveMovie])
+
+    const openEditModal = useCallback((e: SyntheticEvent, id: string) => {
+        e.stopPropagation();
+        setEditedMovieId(id);
+    }, [])
+
+    const openDeleteModal = useCallback((e: SyntheticEvent, id: string) => {
+        e.stopPropagation();
+        setDeletedMovieId(id);
+    }, [])
 
     return (
                 <>
-                    {movies.map((m: IMovieCardData) =>
+                    {movies.map((m: IMovieProps) =>
                         <MovieCard
                             key={m.id}
                             data={m}
-                            openDeleteModal={() => setDeletedMovieId(m.id)}
-                            openEditModal={() => setEditedMovieId(m.id)}
+                            openEditModal={e => openEditModal(e, m.id)}
+                            openDeleteModal={e => openDeleteModal(e, m.id)}
+                            onClick={() => onCardClick(m.id)}
                         />
                     )}
                     <DeleteMovieModal

@@ -12,6 +12,8 @@ const SearchContainer = styled.div`
   position: relative;
   z-index: 2;
   width: 80%;
+  min-height: 22rem;
+  padding: 1rem 0 0;
 `;
 
 const Title = styled.div`
