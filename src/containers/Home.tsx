@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 import Header from "components/header/Header";
@@ -7,6 +7,8 @@ import MoviesList from "components/movie/list/MoviesList";
 import ErrorBoundary from "components/common/ErrorBoundary";
 import WithFooter from "components/common/WithFooter";
 import genres from "consts/genres";
+import {useAppDispatch} from "hooks/reduxHooks";
+import {getMoviesRequest} from "thunks/index";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -41,27 +43,13 @@ const MoviesContainer = styled.div`
 const Home: FC = () => {
 
     const [activeTabId, setActiveTabId] = useState((genres[0] && genres[0].id) || "");
-    const [movies, setMovies] = useState([]);
     const [activeMovie, setActiveMovie] = useState(null);
 
-    const getMovies = useCallback(async () => {
-        const tabData = genres.find(t => t.id === activeTabId);
-
-        const backendUrl = new URL("http://localhost:4000/movies");
-
-        const isFiltered = activeTabId !== genres[0].id;
-        if (isFiltered) {
-            backendUrl.searchParams.append("filter", tabData.name);
-        }
-
-        const response = await fetch(backendUrl.toString());
-        const result = await response.json();
-
-        setMovies(result.data);
-    }, [activeTabId]);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        getMovies();
+        //@ts-ignore
+        dispatch(getMoviesRequest())
     }, [activeTabId]);
 
     return (
@@ -79,7 +67,7 @@ const Home: FC = () => {
                     />
                     <ErrorBoundary>
                         <MoviesContainer>
-                            <MoviesList movies={movies} setActiveMovie={setActiveMovie}/>
+                            <MoviesList setActiveMovie={setActiveMovie} />
                         </MoviesContainer>
                     </ErrorBoundary>
                 </ContentContainer>

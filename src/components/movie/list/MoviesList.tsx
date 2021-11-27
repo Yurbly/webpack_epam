@@ -1,10 +1,12 @@
 import React, {FC, SyntheticEvent, useCallback, useMemo, useState} from "react";
-import MovieCard from "./MovieCard";
-import {IMovieProps, IMoviesListProps} from "../movies";
 import styled from "styled-components";
 import DeleteMovieModal from "components/modals/DeleteMovieModal";
 import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
 import errorMessages from "consts/errorMessages";
+import MovieCard from "./MovieCard";
+import {IMovieProps, IMoviesListProps} from "../movies";
+import {useAppSelector} from "hooks/reduxHooks";
+import {getMoviesData} from "store/movies/actions";
 
 const NoMovies = styled.h3`
     color: white;
@@ -12,11 +14,12 @@ const NoMovies = styled.h3`
 
 const MoviesList: FC<IMoviesListProps> = (props) => {
 
-    const {movies, setActiveMovie} = props;
+    const {setActiveMovie} = props;
+
+    const movies = useAppSelector(getMoviesData);
 
     const [deletedMovieId, setDeletedMovieId] = useState(null);
     const [editedMovieId, setEditedMovieId] = useState(null);
-
 
     const handleDeleteModalClose = useCallback(() => setDeletedMovieId(null), []);
     const handleEditModalClose = useCallback(() => setEditedMovieId(null), []);
@@ -72,4 +75,3 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
 }
 
 export default MoviesList;
-

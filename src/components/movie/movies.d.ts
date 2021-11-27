@@ -19,6 +19,5 @@ export interface IMovieCardProps {
 }
 
 export interface IMoviesListProps {
-    movies: Array<IMovieProps>,
     setActiveMovie(movie: IMovieProps): void
 }
