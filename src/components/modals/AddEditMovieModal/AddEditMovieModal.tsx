@@ -104,7 +104,6 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
                     <Column maxWidth="40%">
                         <DatePickerComponent
                             title={titles.releaseDate}
-                            placeholder={placeholders.releaseDate}
                             date={release_date}
                             onChange={value => onInputFieldChange("release_date", value)}
                         />

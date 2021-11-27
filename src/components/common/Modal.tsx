@@ -4,7 +4,7 @@ import colors from "consts/colors";
 import Cross from "./icons/Cross";
 import styled from "styled-components";
 
-const defaultStyle = {
+const defaultStyle: {content: CSSProperties, overlay: CSSProperties} = {
     content: {
         top: '50%',
         left: '50%',
@@ -30,6 +30,14 @@ const defaultStyle = {
     }
 };
 
+export const initModal = () => {
+    Modal.setAppElement("root");
+    Modal.defaultStyles = {
+        content: {...Modal.defaultStyles.content, ...defaultStyle.content},
+        overlay: {...Modal.defaultStyles.overlay, ...defaultStyle.overlay}
+    }
+};
+
 interface ICustomProps {
     contentStyle?: CSSProperties,
     overlayStyle?: CSSProperties,
@@ -47,6 +55,11 @@ interface ICrossProps {
     rightRem?: number;
 }
 
+interface IDefaultStyles {
+    content: CSSProperties;
+    overlay: CSSProperties;
+}
+
 const CrossContainer = styled.div<ICrossProps>`
     position: absolute;
     cursor: pointer;
@@ -60,9 +73,9 @@ const ModalComponent: FC<ReactModal.Props & ICustomProps> = props => {
 
     const {contentStyle, overlayStyle, onClose, crossTopRem, crossRightRem, crossSize} = props;
 
-    const mergedStyle = {
-        content: {...defaultStyle.content, ...contentStyle},
-        overlay: {...defaultStyle.overlay, ...overlayStyle}
+    const mergedStyle: IDefaultStyles = {
+        content: contentStyle,
+        overlay: overlayStyle
     };
 
     return (
