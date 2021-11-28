@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
 import Header from "components/header/Header";
@@ -10,6 +10,7 @@ import genres from "consts/genres";
 import {useAppDispatch, useAppSelector} from "hooks/reduxHooks";
 import {getMoviesRequest} from "thunks/index";
 import {getMoviesTabFilter} from "store/movies/actions";
+import {useThrottle} from "utils/funcUtils";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -53,12 +54,20 @@ const Home: FC = () => {
         dispatch(getMoviesRequest())
     }, []);
 
+    const onSearchThrottled = useThrottle(searchText => {
+        //@ts-ignore
+        dispatch(getMoviesRequest({searchText}));
+    }, 300);
+
+    const onSearch = useCallback(onSearchThrottled , [])
+
     return (
         <WithFooter>
             <HomeContainer>
                 <Header
                     activeMovie={activeMovie}
                     activateSearch={() => setActiveMovie(null)}
+                    onSearch={onSearch}
                 />
                 <ContentContainer>
                     <Tabs

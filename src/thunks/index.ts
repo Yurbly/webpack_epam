@@ -1,5 +1,5 @@
 import {failure, request, success} from "store/movies/actions";
-import NetworkController, {IParams, methods} from "controllers/NetworkController";
+import NetworkController, {IParams, methods, searchByOpts} from "controllers/NetworkController";
 import {Dispatch} from "redux";
 import {defaultFilters, IFilters} from "store/movies/reducer";
 import {genresNames} from "consts/genres";
@@ -15,6 +15,7 @@ export const getMoviesRequest = (filters: IFilters) => {
         }
         if (finalFilters.searchText) {
             params.search = finalFilters.searchText;
+            params.searchBy = searchByOpts.title;
         }
         return NetworkController
             .request({method: methods.GET, url: "/movies", params})

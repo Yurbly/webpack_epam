@@ -12,9 +12,15 @@ export enum methods {
     DELETE = "DELETE"
 }
 
+export enum searchByOpts {
+    title = "title",
+    genre = "genre"
+}
+
 export interface IParams {
     filter?: string,
-    search?: string
+    search?: string,
+    searchBy?: string
 }
 
 interface IRequestProps {

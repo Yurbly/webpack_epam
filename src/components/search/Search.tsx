@@ -50,7 +50,11 @@ const SearchInput = styled.input`
     }
 `;
 
-const Search: FC = () => {
+interface ISearchProps {
+    onSearch(text: string): void
+}
+
+const Search: FC<ISearchProps> = ({onSearch}) => {
     const [search, setSearch] = useState("");
 
     return (
@@ -64,7 +68,7 @@ const Search: FC = () => {
                 />
                 <Button
                     title={commonText.buttonTitles.search}
-                    onClick={() => {}}
+                    onClick={() => onSearch(search)}
                 />
             </SearchRow>
         </SearchContainer>
