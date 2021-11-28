@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import colors from "consts/colors";
 import Cross from "./icons/Cross";
 import styled from "styled-components";
+import rootContainerId from "consts/rootContainerId";
 
 const defaultStyle: {content: CSSProperties, overlay: CSSProperties} = {
     content: {
@@ -31,7 +32,7 @@ const defaultStyle: {content: CSSProperties, overlay: CSSProperties} = {
 };
 
 export const initModal = () => {
-    Modal.setAppElement("root");
+    Modal.setAppElement(`#${rootContainerId}`);
     Modal.defaultStyles = {
         content: {...Modal.defaultStyles.content, ...defaultStyle.content},
         overlay: {...Modal.defaultStyles.overlay, ...defaultStyle.overlay}

@@ -1,23 +1,31 @@
+export enum genresNames {
+    all = "all",
+    documentary = "documentary",
+    comedy = "comedy",
+    horror = "horror",
+    crime = "crime",
+}
+
 const genres: Array<{id: string, name: string}> = [
     {
-        id: "all",
-        name: "all"
+        id: genresNames.all,
+        name: genresNames.all
     },
     {
-        id: "documentary",
-        name: "documentary"
+        id: genresNames.documentary,
+        name: genresNames.documentary
     },
     {
-        id: "comedy",
-        name: "comedy"
+        id: genresNames.comedy,
+        name: genresNames.comedy
     },
     {
-        id: "horror",
-        name: "horror"
+        id: genresNames.horror,
+        name: genresNames.horror
     },
     {
-        id: "crime",
-        name: "crime"
+        id: genresNames.crime,
+        name: genresNames.crime
     }
 ];
 

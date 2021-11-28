@@ -3,8 +3,13 @@ import {RootState} from "store/index";
 import {IMovie, IMoviesState} from "store/movies/reducer";
 import {PayloadAction} from "src/types/store";
 import {MoviesActionTypes} from "store/movies/actionTypes";
+import {genresNames} from "consts/genres";
 
-export const getMoviesData = (state: RootState): Array<IMovie> => state.movies.data;
+export const getMovies = (state: RootState): Array<IMovie> => state.movies.data.movies;
+
+export const getMoviesSearchText = (state: RootState): string => state.movies.data.filters.searchText;
+
+export const getMoviesTabFilter = (state: RootState): genresNames => state.movies.data.filters.tab;
 
 export const request: ActionCreator<PayloadAction<IMoviesState>> = (payload) => ({
  type: MoviesActionTypes.MOVIES_REQUEST_DATA,
