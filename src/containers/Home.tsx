@@ -7,8 +7,9 @@ import MoviesList from "components/movie/list/MoviesList";
 import ErrorBoundary from "components/common/ErrorBoundary";
 import WithFooter from "components/common/WithFooter";
 import genres from "consts/genres";
-import {useAppDispatch} from "hooks/reduxHooks";
+import {useAppDispatch, useAppSelector} from "hooks/reduxHooks";
 import {getMoviesRequest} from "thunks/index";
+import {getMoviesTabFilter} from "store/movies/actions";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -42,15 +43,15 @@ const MoviesContainer = styled.div`
 
 const Home: FC = () => {
 
-    const [activeTabId, setActiveTabId] = useState((genres[0] && genres[0].id) || "");
     const [activeMovie, setActiveMovie] = useState(null);
 
+    const activeTabId = useAppSelector(getMoviesTabFilter);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         //@ts-ignore
         dispatch(getMoviesRequest())
-    }, [activeTabId]);
+    }, []);
 
     return (
         <WithFooter>
@@ -63,7 +64,8 @@ const Home: FC = () => {
                     <Tabs
                         tabs={genres}
                         activeTabId={activeTabId}
-                        onTabChange={setActiveTabId}
+                        //@ts-ignore
+                        onTabChange={tabId => dispatch(getMoviesRequest({tab: tabId}))}
                     />
                     <ErrorBoundary>
                         <MoviesContainer>

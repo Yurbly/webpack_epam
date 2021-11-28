@@ -6,7 +6,7 @@ import errorMessages from "consts/errorMessages";
 import MovieCard from "./MovieCard";
 import {IMovieProps, IMoviesListProps} from "../movies";
 import {useAppSelector} from "hooks/reduxHooks";
-import {getMoviesData} from "store/movies/actions";
+import {getMovies} from "store/movies/actions";
 
 const NoMovies = styled.h3`
     color: white;
@@ -16,7 +16,7 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
 
     const {setActiveMovie} = props;
 
-    const movies = useAppSelector(getMoviesData);
+    const movies = useAppSelector(getMovies);
 
     const [deletedMovieId, setDeletedMovieId] = useState(null);
 

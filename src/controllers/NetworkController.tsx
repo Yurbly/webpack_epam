@@ -12,9 +12,15 @@ export enum methods {
     DELETE = "DELETE"
 }
 
+export interface IParams {
+    filter?: string,
+    search?: string
+}
+
 interface IRequestProps {
     method: methods,
-    url: string
+    url: string,
+    params?: IParams
 }
 
 const request = async (options: IRequestProps) => {

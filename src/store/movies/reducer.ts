@@ -1,5 +1,6 @@
 import {PayloadAction} from "types/store";
 import {MoviesActionTypes} from "./actionTypes";
+import {genresNames} from "consts/genres";
 
 export interface IMovie {
     id: string,
@@ -12,32 +13,59 @@ export interface IMovie {
     runtime?: number | string,
 }
 
-export type IMoviesState = {
-    data: Array<IMovie>;
+export interface IFilters {
+    tab?: genresNames,
+    searchText?: string
+}
+
+export interface IMoviesState {
+    data: {
+        movies: Array<IMovie>,
+        filters: IFilters
+    },
     isLoading: boolean;
     error: string | null
-};
+}
+
+export const defaultFilters: IFilters = {
+    tab: genresNames.all,
+    searchText: ""
+}
 
 export const initialState: IMoviesState = {
-    data: [],
+    data: {
+        movies: [],
+        filters: defaultFilters
+    },
     isLoading: false,
     error: null
 };
 
 export const moviesReducer = (
     state: IMoviesState = initialState,
-    action: PayloadAction<Array<IMovie>>
+    action: PayloadAction<IMoviesState>
 ): IMoviesState => {
     const {payload, type} = action;
     switch (type) {
         case MoviesActionTypes.MOVIES_REQUEST_DATA:
             return {
                 ...state,
+                data: {
+                    ...state.data,
+                    filters: {
+                        ...state.data.filters,
+                        ...payload.data.filters
+                    }
+                },
                 isLoading: true
             };
         case MoviesActionTypes.MOVIES_SUCCESS_DATA:
             return {
-                data: payload,
+                ...state,
+                data: {
+                    ...state.data,
+                    movies: payload.data.movies
+                },
                 isLoading: false,
                 error: null
             };
@@ -45,7 +73,7 @@ export const moviesReducer = (
             return {
                 ...state,
                 isLoading: false,
-                error: null
+                error: payload.error
             };
         default:
             return state;
