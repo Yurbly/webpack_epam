@@ -52,7 +52,7 @@ const Search: FC = () => {
     const [search, setSearch] = useState("");
 
     return (
-        <SearchContainer className="search-container">
+        <SearchContainer>
             <Title>Find your movie</Title>
             <SearchRow>
                 <SearchInput
