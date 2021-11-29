@@ -1,6 +1,7 @@
 import {PayloadAction} from "types/store";
 import {MoviesActionTypes} from "./actionTypes";
 import {genresNames} from "consts/genres";
+import sortTypes from "consts/sortTypes";
 
 export interface IMovie {
     id: string,
@@ -8,7 +9,7 @@ export interface IMovie {
     poster_path?: string,
     genres?: Array<string>,
     release_date?: string,
-    rating?: number | string,
+    vote_average?: number | string,
     overview?: string,
     runtime?: number | string,
 }
@@ -21,7 +22,8 @@ export interface IFilters {
 export interface IMoviesState {
     data: {
         movies: Array<IMovie>,
-        filters: IFilters
+        filters: IFilters,
+        sortBy: sortTypes
     },
     isLoading: boolean;
     error: string | null
@@ -35,7 +37,8 @@ export const defaultFilters: IFilters = {
 export const initialState: IMoviesState = {
     data: {
         movies: [],
-        filters: defaultFilters
+        filters: defaultFilters,
+        sortBy: sortTypes.release_date
     },
     isLoading: false,
     error: null
@@ -55,7 +58,8 @@ export const moviesReducer = (
                     filters: {
                         ...state.data.filters,
                         ...payload.data.filters
-                    }
+                    },
+                    sortBy: payload.data.sortBy || state.data.sortBy
                 },
                 isLoading: true
             };

@@ -1,41 +1,63 @@
 //@ts-ignore
 import {CSSObjectWithLabel, StylesConfig} from "react-select";
-import {IOption} from "./types";
+import {IOption, ISelectCustomStyles} from "./types";
 import colors from "consts/colors";
 
-export const customStyles: StylesConfig<IOption> = {
-    option: (provided: CSSObjectWithLabel) => ({
-        ...provided,
-        color: colors.white,
-        background: colors.gray,
-        padding: 20,
-    }),
-    control: () => ({
-        width: "100%",
-        background: colors.gray,
-        position: "relative",
-        padding: "0.75rem 0",
-        borderRadius: "4px"
-    }),
-    container: (provided: CSSObjectWithLabel) => ({
-        ...provided,
-        width: "100%",
-        margin: "1rem 0 0",
-    }),
-    menuList: (provided: CSSObjectWithLabel) => ({
-        ...provided,
-        padding: 0,
-        borderRadius: "4px"
-    }),
-    indicatorsContainer: (provided: CSSObjectWithLabel) => ({
-        ...provided,
-        position: "absolute",
-        right: 0,
-        top: "50%",
-        transform: "translateY(-50%)"
-    }),
-    indicatorSeparator: () => ({display: "none"}),
-    dropdownIndicator: (provided: CSSObjectWithLabel) => ({...provided, color: colors.red}),
-    multiValue: (provided: CSSObjectWithLabel) => ({...provided, background: colors.lightGray,}),
-    multiValueLabel: (provided: CSSObjectWithLabel) => ({...provided, color: colors.white})
+export const getCustomStyles = (styles?: ISelectCustomStyles): StylesConfig<IOption> => {
+    const {
+        option,
+        control,
+        container,
+        menuList,
+        indicatorsContainer,
+        indicatorSeparator,
+        dropdownIndicator,
+        multiValue,
+        multiValueLabel,
+        singleValue
+    } = styles;
+
+    return ({
+        option: (provided: CSSObjectWithLabel) => ({
+            ...provided,
+            color: colors.white,
+            background: colors.gray,
+            padding: 20,
+            ...option
+        }),
+        control: () => ({
+            width: "100%",
+            background: colors.gray,
+            position: "relative",
+            padding: "0.75rem 0",
+            borderRadius: "4px",
+            ...control
+        }),
+        container: (provided: CSSObjectWithLabel) => ({
+            ...provided,
+            width: "100%",
+            margin: "1rem 0 0",
+            ...container
+        }),
+        menuList: (provided: CSSObjectWithLabel) => ({
+            ...provided,
+            padding: 0,
+            borderRadius: "4px",
+            ...menuList
+        }),
+        indicatorsContainer: (provided: CSSObjectWithLabel) => ({
+            ...provided,
+            position: "absolute",
+            right: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            ...indicatorsContainer
+        }),
+        indicatorSeparator: () => ({display: "none", ...indicatorSeparator}),
+        dropdownIndicator: (provided: CSSObjectWithLabel) => ({...provided, color: colors.red, ...dropdownIndicator}),
+        multiValue: (provided: CSSObjectWithLabel) => ({...provided, background: colors.lightGray, ...multiValue}),
+        multiValueLabel: (provided: CSSObjectWithLabel) => ({...provided, color: colors.white, ...multiValueLabel}),
+        singleValue: (provided: CSSObjectWithLabel) => ({...provided, ...singleValue})
+    }
+)
 }

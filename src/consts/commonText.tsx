@@ -39,6 +39,12 @@ export default {
         delete: "Delete",
         edit: "Edit"
     },
-    noMoviesFound: "No movies found"
+    noMoviesFound: "No movies found",
+    sortBy: "sort by",
+    tabs: {
+        releaseDate: "Release date",
+        runtime: "Runtime",
+        rating: "Rating"
+    }
 };
 

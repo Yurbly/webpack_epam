@@ -3,11 +3,13 @@ import NetworkController, {IParams, methods, searchByOpts} from "controllers/Net
 import {Dispatch} from "redux";
 import {defaultFilters, IFilters} from "store/movies/reducer";
 import {genresNames} from "consts/genres";
+import {sortOrder} from "consts/sortTypes";
 
-export const getMoviesRequest = (filters: IFilters) => {
+export const getMoviesRequest = ({filters, sortBy}: {filters?: IFilters, sortBy?: string} = {}) => {
     return (dispatch: Dispatch) => {
         const finalFilters = filters || defaultFilters;
-        dispatch(request({data:{filters: finalFilters}}));
+        const payload = {data:{filters: finalFilters, sortBy}};
+        dispatch(request(payload));
 
         const params: IParams = {};
         if (finalFilters.tab && finalFilters.tab !== genresNames.all) {
@@ -16,6 +18,10 @@ export const getMoviesRequest = (filters: IFilters) => {
         if (finalFilters.searchText) {
             params.search = finalFilters.searchText;
             params.searchBy = searchByOpts.title;
+        }
+        if (sortBy) {
+            params.sortBy = sortBy;
+            params.sortOrder = sortOrder.desc;
         }
         return NetworkController
             .request({method: methods.GET, url: "/movies", params})
