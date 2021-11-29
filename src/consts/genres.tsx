@@ -1,4 +1,4 @@
-export default [
+const genres: Array<{id: string, name: string}> = [
     {
         id: "all",
         name: "all"
@@ -21,3 +21,4 @@ export default [
     }
 ];
 
+export default genres;
