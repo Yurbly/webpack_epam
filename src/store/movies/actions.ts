@@ -11,6 +11,8 @@ export const getMoviesSearchText = (state: RootState): string => state.movies.da
 
 export const getMoviesTabFilter = (state: RootState): genresNames => state.movies.data.filters.tab;
 
+export const getMoviesSort = (state: RootState): string => state.movies.data.sortBy;
+
 export const request: ActionCreator<PayloadAction<IMoviesState>> = (payload) => ({
  type: MoviesActionTypes.MOVIES_REQUEST_DATA,
  payload,

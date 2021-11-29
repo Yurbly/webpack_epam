@@ -28,7 +28,7 @@ const defaultMovieData: IMovieProps = {
     poster_path: "",
     genres: [],
     release_date: moment().format(dateTemplate),
-    rating: "",
+    vote_average: "",
     overview: "",
     runtime: ""
 };
@@ -56,7 +56,7 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
         title,
         poster_path,
         release_date,
-        rating,
+        vote_average,
         overview,
         runtime
     } = movieData;
@@ -110,8 +110,8 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
                         <Input
                             title={titles.rating}
                             placeholder={placeholders.rating}
-                            value={rating}
-                            onChange={value => onInputFieldChange("rating", value)}
+                            value={vote_average}
+                            onChange={value => onInputFieldChange("vote_average", value)}
                         />
                         <Input
                             title={titles.runtime}

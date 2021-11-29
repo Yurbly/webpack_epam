@@ -20,7 +20,9 @@ export enum searchByOpts {
 export interface IParams {
     filter?: string,
     search?: string,
-    searchBy?: string
+    searchBy?: string,
+    sortBy?: string,
+    sortOrder?: string
 }
 
 interface IRequestProps {

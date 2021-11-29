@@ -11,6 +11,7 @@ import {useAppDispatch, useAppSelector} from "hooks/reduxHooks";
 import {getMoviesRequest} from "thunks/index";
 import {getMoviesTabFilter} from "store/movies/actions";
 import {useThrottle} from "utils/funcUtils";
+import SortSelect from "containers/SortSelect";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -75,6 +76,8 @@ const Home: FC = () => {
                         activeTabId={activeTabId}
                         //@ts-ignore
                         onTabChange={tabId => dispatch(getMoviesRequest({tab: tabId}))}
+                        //@ts-ignore
+                        controls={<SortSelect onChange={value => dispatch(getMoviesRequest({sortBy: value}))}/>}
                     />
                     <ErrorBoundary>
                         <MoviesContainer>
