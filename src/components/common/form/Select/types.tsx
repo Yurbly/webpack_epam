@@ -3,8 +3,6 @@ export interface IOption {
     value: string;
 }
 
-export type IsMulti = false;
-
 export interface ISelectProps {
     title: string,
     options: Array<IOption>,

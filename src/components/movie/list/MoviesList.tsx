@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useCallback, useState} from "react";
 import MovieCard from "./MovieCard";
 import {IMovieCardData, IMoviesListProps} from "./list";
 import styled from "styled-components";
@@ -14,6 +14,10 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
 
     const [deletedMovieId, setDeletedMovieId] = useState(null);
     const [editedMovieId, setEditedMovieId] = useState(null);
+
+
+    const handleDeleteModalClose = useCallback(() => setDeletedMovieId(null), []);
+    const handleEditModalClose = useCallback(() => setEditedMovieId(null), []);
 
     const {movies} = props;
     if (!movies || !movies.length) {
@@ -34,13 +38,13 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
                     )}
                     <DeleteMovieModal
                         isOpen={!!deletedMovieId}
-                        onClose={() => setDeletedMovieId(null)}
-                        onConfirm={() => console.log("deleted", deletedMovieId)}
+                        onClose={handleDeleteModalClose}
+                        onConfirm={handleDeleteModalClose}
                     />
                     <AddEditMovieModal
                         isOpen={!!editedMovieId}
-                        onClose={() => setEditedMovieId(null)}
-                        onConfirm={() => console.log("edited", editedMovieId)}
+                        onClose={handleEditModalClose}
+                        onConfirm={handleEditModalClose}
                         data={editedMovieData}
                     />
                 </>

@@ -1,9 +1,9 @@
 //@ts-ignore
 import {CSSObjectWithLabel, StylesConfig} from "react-select";
-import {IOption, IsMulti} from "./types";
+import {IOption} from "./types";
 import colors from "consts/colors";
 
-export const customStyles: StylesConfig<IOption, IsMulti> = {
+export const customStyles: StylesConfig<IOption> = {
     option: (provided: CSSObjectWithLabel) => ({
         ...provided,
         color: colors.white,

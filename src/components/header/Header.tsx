@@ -72,7 +72,7 @@ const Header: FC = () => {
                 <AddEditMovieModal
                     isOpen={isAddMovieModalOpen}
                     onClose={handleCloseAddMovieModal}
-                    onConfirm={() => {}}
+                    onConfirm={handleCloseAddMovieModal}
                 />
             </HeaderContainer>
     );

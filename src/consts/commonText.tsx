@@ -13,6 +13,8 @@ export default {
         message: "Are you sure you want to delete this movie?"
     },
     addEditModal: {
+        addMovie: "Add movie",
+        editMovie: "Edit movie",
         titles: {
             title: "Title",
             movieUrl: "Movie url",

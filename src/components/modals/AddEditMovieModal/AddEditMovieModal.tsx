@@ -41,7 +41,7 @@ genres.forEach(g => {
 
 const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
 
-    const {isOpen, onClose, data} = props;
+    const {isOpen, onClose, data, onConfirm} = props;
     const [movieData, setMovieData] = useState(data || defaultMovieData)
 
     useEffect(() => {
@@ -69,13 +69,15 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
 
     const {titles, placeholders} = commonText.addEditModal;
 
+    const modalTitle = data ? commonText.addEditModal.editMovie : commonText.addEditModal.addMovie;
+
     return (
         <ModalComponent
             isOpen={isOpen}
             contentStyle={contentStyle}
             onClose={onClose}
         >
-            <Title>Add movie</Title>
+            <Title>{modalTitle}</Title>
             <Form>
                 <ColumnsContainer>
                     <Column maxWidth="60%">
@@ -134,7 +136,7 @@ const AddEditMovieModal: FC<ReactModal.Props & ICustomModalProps> = props => {
                     styleType={buttonTypes.cancel}
                     onClick={useCallback(() => setMovieData(defaultMovieData), [])}
                 />
-                <Button title={commonText.buttonTitles.submit} onClick={() => console.log("submit")}/>
+                <Button title={commonText.buttonTitles.submit} onClick={onConfirm}/>
             </Controls>
         </ModalComponent>
     )
