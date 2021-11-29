@@ -1,6 +1,6 @@
 import { ActionCreator } from 'redux';
 import {RootState} from "store/index";
-import {IMovie, IMoviesState} from "store/movies/reducer";
+import {IMovie, IMoviesState, IMoviesStateData} from "store/movies/reducer";
 import {PayloadAction} from "src/types/store";
 import {MoviesActionTypes} from "store/movies/actionTypes";
 import {genresNames} from "consts/genres";
@@ -12,6 +12,8 @@ export const getMoviesSearchText = (state: RootState): string => state.movies.da
 export const getMoviesTabFilter = (state: RootState): genresNames => state.movies.data.filters.tab;
 
 export const getMoviesSort = (state: RootState): string => state.movies.data.sortBy;
+
+export const getMoviesData = (state: RootState): IMoviesStateData => state.movies.data;
 
 export const request: ActionCreator<PayloadAction<IMoviesState>> = (payload) => ({
  type: MoviesActionTypes.MOVIES_REQUEST_DATA,

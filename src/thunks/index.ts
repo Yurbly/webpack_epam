@@ -1,28 +1,46 @@
 import {failure, request, success} from "store/movies/actions";
 import NetworkController, {IParams, methods, searchByOpts} from "controllers/NetworkController";
 import {Dispatch} from "redux";
-import {defaultFilters, IFilters} from "store/movies/reducer";
+import {defaultFilters, IFilters, IMoviesState, IMoviesStateData} from "store/movies/reducer";
 import {genresNames} from "consts/genres";
-import {sortOrder} from "consts/sortTypes";
+import sortTypes, {sortOrder} from "consts/sortTypes";
 
-export const getMoviesRequest = ({filters, sortBy}: {filters?: IFilters, sortBy?: string} = {}) => {
+interface IGetMoviesRequest {
+    moviesState: IMoviesStateData,
+    filters?: IFilters,
+    sortBy?: sortTypes
+}
+
+export const getMoviesRequest = ({moviesState, filters, sortBy}: IGetMoviesRequest) => {
     return (dispatch: Dispatch) => {
-        const finalFilters = filters || defaultFilters;
-        const payload = {data:{filters: finalFilters, sortBy}};
+        const payload: IMoviesState = {
+            data:{
+                filters: filters || {},
+                sortBy
+            }
+        };
         dispatch(request(payload));
 
+        const prelimParams: IParams = {
+            filter: filters && filters.tab || moviesState.filters.tab || defaultFilters.tab,
+            search: filters && filters.searchText || moviesState.filters.searchText || defaultFilters.searchText,
+            sortBy: sortBy || moviesState.sortBy
+        };
+
         const params: IParams = {};
-        if (finalFilters.tab && finalFilters.tab !== genresNames.all) {
-            params.filter = finalFilters.tab;
+
+        if (prelimParams.filter && prelimParams.filter !== genresNames.all) {
+            params.filter = prelimParams.filter;
         }
-        if (finalFilters.searchText) {
-            params.search = finalFilters.searchText;
+        if (prelimParams.search) {
+            params.search = prelimParams.search;
             params.searchBy = searchByOpts.title;
         }
-        if (sortBy) {
-            params.sortBy = sortBy;
+        if (prelimParams.sortBy) {
+            params.sortBy = prelimParams.sortBy;
             params.sortOrder = sortOrder.desc;
         }
+
         return NetworkController
             .request({method: methods.GET, url: "/movies", params})
             .then(response => dispatch(success({data: {movies: response.data.data}})))

@@ -3,18 +3,18 @@ import {CSSObjectWithLabel, StylesConfig} from "react-select";
 import {IOption, ISelectCustomStyles, IsMulti} from "./types";
 import colors from "consts/colors";
 
-export const getCustomStyles = (styles?: ISelectCustomStyles): StylesConfig<IOption, IsMulti> => {
+export const getCustomStyles = (styles: ISelectCustomStyles = {}): StylesConfig<IOption, IsMulti> => {
     const {
-        option,
-        control,
-        container,
-        menuList,
-        indicatorsContainer,
-        indicatorSeparator,
-        dropdownIndicator,
-        multiValue,
-        multiValueLabel,
-        singleValue
+        option = {},
+        control = {},
+        container = {},
+        menuList = {},
+        indicatorsContainer = {},
+        indicatorSeparator = {},
+        dropdownIndicator = {},
+        multiValue = {},
+        multiValueLabel = {},
+        singleValue = {}
     } = styles;
 
     return ({

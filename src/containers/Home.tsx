@@ -9,7 +9,7 @@ import WithFooter from "components/common/WithFooter";
 import genres from "consts/genres";
 import {useAppDispatch, useAppSelector} from "hooks/reduxHooks";
 import {getMoviesRequest} from "thunks/index";
-import {getMoviesTabFilter} from "store/movies/actions";
+import {getMoviesData, getMoviesTabFilter} from "store/movies/actions";
 import {useThrottle} from "utils/funcUtils";
 import SortSelect from "containers/SortSelect";
 
@@ -47,20 +47,21 @@ const Home: FC = () => {
 
     const [activeMovie, setActiveMovie] = useState(null);
 
-    const activeTabId = useAppSelector(getMoviesTabFilter);
     const dispatch = useAppDispatch();
+    const activeTabId = useAppSelector(getMoviesTabFilter);
+    const moviesState = useAppSelector(getMoviesData)
 
     useEffect(() => {
         //@ts-ignore
-        dispatch(getMoviesRequest())
+        dispatch(getMoviesRequest({moviesState}))
     }, []);
 
     const onSearchThrottled = useThrottle(searchText => {
         //@ts-ignore
-        dispatch(getMoviesRequest({searchText}));
+        dispatch(getMoviesRequest({moviesState, filters: {searchText}}));
     }, 300);
 
-    const onSearch = useCallback(onSearchThrottled , [])
+    const onSearch = useCallback(onSearchThrottled , [onSearchThrottled, moviesState])
 
     return (
         <WithFooter>
@@ -75,9 +76,13 @@ const Home: FC = () => {
                         tabs={genres}
                         activeTabId={activeTabId}
                         //@ts-ignore
-                        onTabChange={tabId => dispatch(getMoviesRequest({tab: tabId}))}
+                        onTabChange={tabId => dispatch(getMoviesRequest({moviesState, filters: {tab: tabId}}))}
+                        controls={
+                            <SortSelect
                         //@ts-ignore
-                        controls={<SortSelect onChange={value => dispatch(getMoviesRequest({sortBy: value}))}/>}
+                                onChange={value => dispatch(getMoviesRequest({moviesState, sortBy: value}))}
+                            />
+                        }
                     />
                     <ErrorBoundary>
                         <MoviesContainer>

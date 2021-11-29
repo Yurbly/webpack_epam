@@ -19,14 +19,16 @@ export interface IFilters {
     searchText?: string
 }
 
+export interface IMoviesStateData {
+    movies?: Array<IMovie>,
+    filters?: IFilters,
+    sortBy?: sortTypes | ""
+}
+
 export interface IMoviesState {
-    data: {
-        movies: Array<IMovie>,
-        filters: IFilters,
-        sortBy: sortTypes
-    },
-    isLoading: boolean;
-    error: string | null
+    data: IMoviesStateData,
+    isLoading?: boolean;
+    error?: string | null
 }
 
 export const defaultFilters: IFilters = {
@@ -38,7 +40,7 @@ export const initialState: IMoviesState = {
     data: {
         movies: [],
         filters: defaultFilters,
-        sortBy: sortTypes.release_date
+        sortBy: ""
     },
     isLoading: false,
     error: null
