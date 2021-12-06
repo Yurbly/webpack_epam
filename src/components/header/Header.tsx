@@ -7,15 +7,18 @@ import NetflixLogo from "components/common/NetflixLogo";
 import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
 import colors from "consts/colors";
 import commonText from "consts/commonText";
+import MovieShow from "components/movie/show/MovieShow";
+import {IMovieProps} from "components/movie/movies";
+import SearchButton from "components/header/SearchButton";
 
 const HeaderContainer = styled.header`
     position: relative;
-    height: 30rem;
+    height: fit-content;
     width: 100%;
     
     display: flex;
     flex-flow: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin: 2rem;
     background: ${colors.black};
@@ -38,7 +41,7 @@ const FirstRow = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 2rem 4rem;
+    padding: 2rem 4rem 1rem;
     box-sizing: border-box;
 `;
 
@@ -50,7 +53,12 @@ const addButtonStyle = {
     fontWeight: 600
 };
 
-const Header: FC = () => {
+interface IHeaderProps {
+    activeMovie?: IMovieProps,
+    activateSearch(): void
+}
+
+const Header: FC<IHeaderProps> = ({activeMovie, activateSearch}) => {
 
     const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
 
@@ -58,23 +66,30 @@ const Header: FC = () => {
     const handleCloseAddMovieModal = useCallback(() => setIsAddMovieModalOpen(false), [])
 
     return (
-            <HeaderContainer>
-                <FirstRow>
-                    <NetflixLogo/>
-                    <Button
+        <HeaderContainer>
+            <FirstRow>
+                <NetflixLogo/>
+                {activeMovie
+                    ? <SearchButton onClick={activateSearch} />
+                    : <Button
                         title={commonText.addMovie}
                         buttonStyle={addButtonStyle}
                         onClick={handleOpenAddMovieModal}
+                    />}
+            </FirstRow>
+            {activeMovie
+                ? <MovieShow activeMovie={activeMovie}/>
+                : <>
+                    <Background src={headerBackgroundUrl}/>
+                    <Search/>
+                    <AddEditMovieModal
+                        isOpen={isAddMovieModalOpen}
+                        onClose={handleCloseAddMovieModal}
+                        onConfirm={() => {
+                        }}
                     />
-                </FirstRow>
-                <Search/>
-                <Background src={headerBackgroundUrl}/>
-                <AddEditMovieModal
-                    isOpen={isAddMovieModalOpen}
-                    onClose={handleCloseAddMovieModal}
-                    onConfirm={handleCloseAddMovieModal}
-                />
-            </HeaderContainer>
+                </>
+            }            </HeaderContainer>
     );
 }
 

@@ -12,7 +12,8 @@ import genres from "consts/genres";
 import buttonTypes from "consts/buttonTypes";
 import {dateTemplate} from "consts/dateTemplate";
 import {Column, ColumnsContainer, Controls, Form, Title} from "./styled";
-import {ICustomModalProps, IMovieProps} from "./types";
+import {ICustomModalProps} from "./types";
+import {IMovieProps} from "components/movie/movies";
 import commonText from "consts/commonText";
 
 const contentStyle: CSSProperties = {
@@ -22,9 +23,10 @@ const contentStyle: CSSProperties = {
 };
 
 const defaultMovieData: IMovieProps = {
+    id: "",
     title: "",
     poster_path: "",
-    genres: "",
+    genres: [],
     release_date: moment().format(dateTemplate),
     rating: "",
     overview: "",

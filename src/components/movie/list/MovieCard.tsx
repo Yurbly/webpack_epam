@@ -1,7 +1,7 @@
 import React, {FC, useCallback, useState} from "react";
 import styled from "styled-components";
 import colors from "consts/colors";
-import {IMovieCardProps} from "./list";
+import {IMovieCardProps} from "components/movie/movies";
 import movieMockImgUrl from "images/movie-mock.png";
 import PopupMenu from "components/common/PopupMenu/PopupMenu";
 import commonText from "consts/commonText";
@@ -15,6 +15,7 @@ const MovieCardContainer = styled.div`
   flex-flow: column;
   width: 30%;
   position: relative;
+  cursor: pointer;
 `;
 
 const Poster = styled.img`
@@ -59,7 +60,7 @@ const Genres = styled.div`
 `;
 
 const MovieCard: FC<IMovieCardProps> = props => {
-    const {data, openEditModal, openDeleteModal} = props;
+    const {data, openEditModal, openDeleteModal, onClick} = props;
 
     const [isMenuShown, setIsMenuShown] = useState(false)
 
@@ -94,6 +95,7 @@ const MovieCard: FC<IMovieCardProps> = props => {
         <MovieCardContainer
             onMouseEnter={() => setIsMenuShown(true)}
             onMouseLeave={() => setIsMenuShown(false)}
+            onClick={onClick}
         >
             {isMenuShown && <MenuContainer>
                 <PopupMenu
