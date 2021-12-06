@@ -85,8 +85,7 @@ const Header: FC<IHeaderProps> = ({activeMovie, activateSearch}) => {
                     <AddEditMovieModal
                         isOpen={isAddMovieModalOpen}
                         onClose={handleCloseAddMovieModal}
-                        onConfirm={() => {
-                        }}
+                        onConfirm={handleCloseAddMovieModal}
                     />
                 </>
             }            </HeaderContainer>

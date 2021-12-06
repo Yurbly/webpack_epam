@@ -21,11 +21,6 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
     const handleDeleteModalClose = useCallback(() => setDeletedMovieId(null), []);
     const handleEditModalClose = useCallback(() => setEditedMovieId(null), []);
 
-    if (!movies || !movies.length) {
-        return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
-    }
-
-
     const editedMovieData = useMemo(() => movies.find(m => m.id === editedMovieId), [editedMovieId]);
 
     const onCardClick = useCallback((id: string) => {
@@ -45,6 +40,10 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
         e.stopPropagation();
         setDeletedMovieId(id);
     }, [])
+
+    if (!movies || !movies.length) {
+        return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
+    }
 
     return (
                 <>
