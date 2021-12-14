@@ -51,14 +51,13 @@ const Label = styled.label`
 
 interface IDatePickerProps {
     title?: string,
-    placeholder: string,
     date: string,
-    onChange(date: OnDateChangeProps): void
+    onChange(date: string): void
 }
 
 const DatePickerComponent: FC<IDatePickerProps> = props => {
 
-    const {title, placeholder, date, onChange} = props;
+    const {title, date, onChange} = props;
 
     const [isPickerShown, setIsPickerShown] = useState(false);
 
@@ -81,7 +80,6 @@ const DatePickerComponent: FC<IDatePickerProps> = props => {
                 <DateSingleInput
                     date={momentDate.toDate()}
                     onDateChange={onDateChange}
-                    placeholder={placeholder}
                     showDatepicker={isPickerShown}
                     onFocusChange={toggleDatePicker}
                     showClose={false}

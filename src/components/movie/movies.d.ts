@@ -6,7 +6,7 @@ export interface IMovieProps {
     poster_path?: string,
     genres?: Array<string>,
     release_date?: string,
-    rating?: number | string,
+    vote_average?: number | string,
     overview?: string,
     runtime?: number | string,
 }
@@ -19,6 +19,5 @@ export interface IMovieCardProps {
 }
 
 export interface IMoviesListProps {
-    movies: Array<IMovieProps>,
     setActiveMovie(movie: IMovieProps): void
 }

@@ -55,10 +55,11 @@ const addButtonStyle = {
 
 interface IHeaderProps {
     activeMovie?: IMovieProps,
-    activateSearch(): void
+    activateSearch(): void,
+    onSearch(text: string): void
 }
 
-const Header: FC<IHeaderProps> = ({activeMovie, activateSearch}) => {
+const Header: FC<IHeaderProps> = ({activeMovie, activateSearch, onSearch}) => {
 
     const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
 
@@ -81,12 +82,11 @@ const Header: FC<IHeaderProps> = ({activeMovie, activateSearch}) => {
                 ? <MovieShow activeMovie={activeMovie}/>
                 : <>
                     <Background src={headerBackgroundUrl}/>
-                    <Search/>
+                    <Search onSearch={onSearch}/>
                     <AddEditMovieModal
                         isOpen={isAddMovieModalOpen}
                         onClose={handleCloseAddMovieModal}
-                        onConfirm={() => {
-                        }}
+                        onConfirm={handleCloseAddMovieModal}
                     />
                 </>
             }            </HeaderContainer>

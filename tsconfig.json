@@ -8,6 +8,22 @@
     "jsx": "react",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "consts/*": ["src/consts/*"],
+      "containers/*": ["src/containers/*"],
+      "controllers/*": ["src/controllers/*"],
+      "hooks/*": ["src/hooks/*"],
+      "images/*":  ["public/images/*"],
+      "utils/*": ["src/utils/*"],
+      "store/*": ["src/store/*"],
+      "types/*": ["src/types/*"],
+      "thunks/*": ["src/thunks/*"]
+    }
+  },
+  "include": ["**/*", "./src/**/*"],
+  "exclude": ["node_modules", ".idea", "dist"]
 }

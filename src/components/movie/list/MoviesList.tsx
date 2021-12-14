@@ -1,10 +1,12 @@
 import React, {FC, SyntheticEvent, useCallback, useMemo, useState} from "react";
-import MovieCard from "./MovieCard";
-import {IMovieProps, IMoviesListProps} from "../movies";
 import styled from "styled-components";
 import DeleteMovieModal from "components/modals/DeleteMovieModal";
 import AddEditMovieModal from "components/modals/AddEditMovieModal/AddEditMovieModal";
 import errorMessages from "consts/errorMessages";
+import MovieCard from "./MovieCard";
+import {IMovieProps, IMoviesListProps} from "../movies";
+import {useAppSelector} from "hooks/reduxHooks";
+import {getMovies} from "store/movies/actions";
 
 const NoMovies = styled.h3`
     color: white;
@@ -12,14 +14,15 @@ const NoMovies = styled.h3`
 
 const MoviesList: FC<IMoviesListProps> = (props) => {
 
-    const {movies, setActiveMovie} = props;
-    if (!movies || !movies.length) {
-        return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
-    }
+    const {setActiveMovie} = props;
+
+    const movies = useAppSelector(getMovies);
 
     const [deletedMovieId, setDeletedMovieId] = useState(null);
     const [editedMovieId, setEditedMovieId] = useState(null);
 
+    const handleDeleteModalClose = useCallback(() => setDeletedMovieId(null), []);
+    const handleEditModalClose = useCallback(() => setEditedMovieId(null), []);
 
     const editedMovieData = useMemo(() => movies.find(m => m.id === editedMovieId), [editedMovieId]);
 
@@ -41,6 +44,10 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
         setDeletedMovieId(id);
     }, [])
 
+    if (!movies || !movies.length) {
+        return <NoMovies>{errorMessages.noMoviesFound}</NoMovies>
+    }
+
     return (
                 <>
                     {movies.map((m: IMovieProps) =>
@@ -54,13 +61,13 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
                     )}
                     <DeleteMovieModal
                         isOpen={!!deletedMovieId}
-                        onClose={() => setDeletedMovieId(null)}
-                        onConfirm={() => console.log("deleted", deletedMovieId)}
+                        onClose={handleDeleteModalClose}
+                        onConfirm={handleDeleteModalClose}
                     />
                     <AddEditMovieModal
                         isOpen={!!editedMovieId}
-                        onClose={() => setEditedMovieId(null)}
-                        onConfirm={() => console.log("edited", editedMovieId)}
+                        onClose={handleEditModalClose}
+                        onConfirm={handleEditModalClose}
                         data={editedMovieData}
                     />
                 </>
@@ -68,4 +75,3 @@ const MoviesList: FC<IMoviesListProps> = (props) => {
 }
 
 export default MoviesList;
-

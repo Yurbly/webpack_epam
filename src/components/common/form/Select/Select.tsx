@@ -4,9 +4,9 @@ import styled from "styled-components";
 import Select from "react-select"
 import colors from "consts/colors";
 import {IGetSelectedProps, IOption, ISelectProps} from "./types";
-import {customStyles} from "./reactSelectCustomStyles";
+import {getCustomStyles} from "./reactSelectCustomStyles";
 
-const Label = styled.label`
+const Label = styled.label<{withoutTitle?: boolean}>`
     display: flex;
     flex-flow: column;
     align-items: flex-start;
@@ -16,7 +16,10 @@ const Label = styled.label`
     line-height: 1.25rem;
     
     width: 100%;
-    margin: 0 0 2rem
+    margin: 0 0 2rem;
+    ${props => props.withoutTitle && `
+        margin: 0;
+    `}
 `;
 
 const getSelected = ({options, value, isMulti} : IGetSelectedProps) => {
@@ -29,7 +32,7 @@ const getSelected = ({options, value, isMulti} : IGetSelectedProps) => {
 
 const SelectComponent: FC<ISelectProps> = props => {
 
-    const {title, options, isMulti, value, onChange} = props;
+    const {title, options, isMulti, value, onChange, styles, withoutTitle} = props;
 
     const handleMultipleChange = useCallback((options: Array<IOption>) => {
         const mappedOptions = options.map(option => option.value);
@@ -43,10 +46,10 @@ const SelectComponent: FC<ISelectProps> = props => {
     const selected: Array<IOption> | IOption = getSelected({options, value, isMulti});
 
     return (
-        <Label>
+        <Label withoutTitle={withoutTitle}>
             {title}
             <Select
-                styles={customStyles}
+                styles={getCustomStyles(styles)}
                 options={options}
                 value={selected}
                 onChange={handleChange}

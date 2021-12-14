@@ -23,7 +23,7 @@ const MovieShow: FC<{activeMovie: IMovieProps}> = props => {
         genres,
         poster_path,
         release_date,
-        rating,
+        vote_average,
         runtime,
         overview
     } = activeMovie;
@@ -52,7 +52,7 @@ const MovieShow: FC<{activeMovie: IMovieProps}> = props => {
             <InfoContainer>
             <TitleRatingContainer>
                 <Title>{title}</Title>
-                {rating && <Rating>{rating}</Rating>}
+                {!!vote_average && <Rating>{vote_average}</Rating>}
             </TitleRatingContainer>
             <Genres>{genresString}</Genres>
                 <YearRuntimeContainer>

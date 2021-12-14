@@ -3,6 +3,8 @@ import styled from "styled-components";
 import colors from "consts/colors";
 import Button from "components/common/Button";
 import commonText from "consts/commonText";
+import {useAppSelector} from "hooks/reduxHooks";
+import {getMoviesSearchText} from "store/movies/actions";
 
 const SearchContainer = styled.div`
   display: flex;
@@ -50,8 +52,13 @@ const SearchInput = styled.input`
     }
 `;
 
-const Search: FC = () => {
-    const [search, setSearch] = useState("");
+interface ISearchProps {
+    onSearch(text: string): void
+}
+
+const Search: FC<ISearchProps> = ({onSearch}) => {
+    const initSearch = useAppSelector(getMoviesSearchText);
+    const [search, setSearch] = useState(initSearch);
 
     return (
         <SearchContainer>
@@ -64,7 +71,7 @@ const Search: FC = () => {
                 />
                 <Button
                     title={commonText.buttonTitles.search}
-                    onClick={() => {}}
+                    onClick={() => onSearch(search)}
                 />
             </SearchRow>
         </SearchContainer>

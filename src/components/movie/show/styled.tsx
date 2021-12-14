@@ -46,6 +46,11 @@ export const Rating = styled.div`
   border-radius: 50%;
   border: 1px solid ${colors.white};
   padding: 0.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.3;
 `;
 
 export const Genres = styled.div`

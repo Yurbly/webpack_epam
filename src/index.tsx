@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import Modal from "react-modal";
+import {initModal} from "components/common/Modal";
+import rootContainerId from "consts/rootContainerId";
 
-const root = document.getElementById("root");
+const root = document.getElementById(rootContainerId);
 
 ReactDOM.render(<App/>, root);
-Modal.setAppElement("#root");
+initModal();
 

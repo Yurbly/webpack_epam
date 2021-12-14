@@ -13,6 +13,8 @@ export default {
         message: "Are you sure you want to delete this movie?"
     },
     addEditModal: {
+        addMovie: "Add movie",
+        editMovie: "Edit movie",
         titles: {
             title: "Title",
             movieUrl: "Movie url",
@@ -37,6 +39,12 @@ export default {
         delete: "Delete",
         edit: "Edit"
     },
-    noMoviesFound: "No movies found"
+    noMoviesFound: "No movies found",
+    sortBy: "sort by",
+    tabs: {
+        releaseDate: "Release date",
+        runtime: "Runtime",
+        rating: "Rating"
+    }
 };
 

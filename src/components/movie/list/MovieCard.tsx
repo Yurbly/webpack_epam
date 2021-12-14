@@ -6,6 +6,9 @@ import movieMockImgUrl from "images/movie-mock.png";
 import PopupMenu from "components/common/PopupMenu/PopupMenu";
 import commonText from "consts/commonText";
 
+const EDIT_ITEM_ID = "edit";
+const DELETE_ITEM_ID = "delete";
+
 const MovieCardContainer = styled.div`
   padding: 0 0 3rem;
   display: flex;
@@ -76,12 +79,12 @@ const MovieCard: FC<IMovieCardProps> = props => {
 
     const menuItems = [
         {
-            id: "edit",
+            id: EDIT_ITEM_ID,
             name: commonText.common.edit,
             onClick: openEditModal
         },
         {
-            id: "delete",
+            id: DELETE_ITEM_ID,
             name: commonText.common.delete,
             onClick: openDeleteModal
         }

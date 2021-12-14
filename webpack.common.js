@@ -1,5 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+require("dotenv").config();
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     mode: process.env.NODE_ENV,
@@ -23,15 +26,10 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({template: 'public/index.html'}),
+        new Dotenv()
     ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        alias: {
-            components: path.resolve(__dirname, 'src/components/'),
-            consts: path.resolve(__dirname, 'src/consts/'),
-            containers: path.resolve(__dirname, 'src/containers/'),
-            images: path.resolve(__dirname, 'public/images/'),
-            utils: path.resolve(__dirname, 'src/utils/'),
-        },
+        plugins: [new TsconfigPathsPlugin()]
     },
 }

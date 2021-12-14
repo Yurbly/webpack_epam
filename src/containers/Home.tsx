@@ -7,6 +7,11 @@ import MoviesList from "components/movie/list/MoviesList";
 import ErrorBoundary from "components/common/ErrorBoundary";
 import WithFooter from "components/common/WithFooter";
 import genres from "consts/genres";
+import {useAppDispatch, useAppSelector} from "hooks/reduxHooks";
+import {getMoviesRequest} from "thunks/index";
+import {getMoviesData, getMoviesTabFilter} from "store/movies/actions";
+import {useThrottle} from "utils/funcUtils";
+import SortSelect from "containers/SortSelect";
 
 const HomeContainer = styled.div`   
     display: flex;
@@ -40,29 +45,23 @@ const MoviesContainer = styled.div`
 
 const Home: FC = () => {
 
-    const [activeTabId, setActiveTabId] = useState((genres[0] && genres[0].id) || "");
-    const [movies, setMovies] = useState([]);
     const [activeMovie, setActiveMovie] = useState(null);
 
-    const getMovies = useCallback(async () => {
-        const tabData = genres.find(t => t.id === activeTabId);
-
-        const backendUrl = new URL("http://localhost:4000/movies");
-
-        const isFiltered = activeTabId !== genres[0].id;
-        if (isFiltered) {
-            backendUrl.searchParams.append("filter", tabData.name);
-        }
-
-        const response = await fetch(backendUrl.toString());
-        const result = await response.json();
-
-        setMovies(result.data);
-    }, [activeTabId]);
+    const dispatch = useAppDispatch();
+    const activeTabId = useAppSelector(getMoviesTabFilter);
+    const moviesState = useAppSelector(getMoviesData)
 
     useEffect(() => {
-        getMovies();
-    }, [activeTabId]);
+        //@ts-ignore
+        dispatch(getMoviesRequest({moviesState}))
+    }, []);
+
+    const onSearchThrottled = useThrottle(searchText => {
+        //@ts-ignore
+        dispatch(getMoviesRequest({moviesState, filters: {searchText}}));
+    }, 300);
+
+    const onSearch = useCallback(onSearchThrottled , [onSearchThrottled, moviesState])
 
     return (
         <WithFooter>
@@ -70,16 +69,24 @@ const Home: FC = () => {
                 <Header
                     activeMovie={activeMovie}
                     activateSearch={() => setActiveMovie(null)}
+                    onSearch={onSearch}
                 />
                 <ContentContainer>
                     <Tabs
                         tabs={genres}
                         activeTabId={activeTabId}
-                        onTabChange={setActiveTabId}
+                        //@ts-ignore
+                        onTabChange={tabId => dispatch(getMoviesRequest({moviesState, filters: {tab: tabId}}))}
+                        controls={
+                            <SortSelect
+                        //@ts-ignore
+                                onChange={value => dispatch(getMoviesRequest({moviesState, sortBy: value}))}
+                            />
+                        }
                     />
                     <ErrorBoundary>
                         <MoviesContainer>
-                            <MoviesList movies={movies} setActiveMovie={setActiveMovie}/>
+                            <MoviesList setActiveMovie={setActiveMovie} />
                         </MoviesContainer>
                     </ErrorBoundary>
                 </ContentContainer>
